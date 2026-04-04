@@ -79,7 +79,7 @@ cd runner && cargo run --release --bin wycheproof_chacha -- ../testdata/wychepro
 
 ## Regenerating vectors
 
-From repository root `cess-standard/`:
+From repository root:
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install cryptography blake3 argon2-cffi pycryptodome
