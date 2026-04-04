@@ -1,0 +1,34 @@
+# CESS cross-reference: RFC 7027 Appendix A (TLS Brainpool ECDH)
+# Full corpus: ../testdata/rfc7027/rfc7027_brainpool_tls_ecdh.json (P-256, P-384, P-512)
+# x_Z is the TLS pre-master secret (shared ECDH x-coordinate); SEC1 field element encoding.
+# Distinct from RFC 6932 Appendix A for the same curve identifiers.
+schema = "cess-rfc7027-brainpool-v0.1"
+
+source = "RFC 7027 Appendix A"
+encoding = "SEC1 FieldElement-to-OctetString (per RFC 7027)"
+python_verification = "scripts/rfc7027_brainpool.py"
+rust_verification = "bp256 + bp384 via runner/src/bin/rfc6932_brainpool.rs (same JSON schema; P-512 not in Rust harness)"
+
+[[vectors]]
+description = "RFC 7027 A.1 — brainpoolP256r1 TLS ECDH (excerpt)"
+curve_id = "brainpoolP256r1"
+dA_hex = "81db1ee100150ff2ea338d708271be38300cb54241d79950f77b063039804f1d"
+peer_x_qB_hex = "8d2d688c6cf93e1160ad04cc4429117dc2c41825e1e9fca0addd34e6f1b39f7b"
+peer_y_qB_hex = "990c57520812be512641e47034832106bc7d3e8dd0e4c7f1136d7006547cec6a"
+shared_secret_x_Z_hex = "89afc39d41d3b327814b80940b042590f96556ec91e6ae7939bce31f3a18bf2b"
+
+[[vectors]]
+description = "RFC 7027 A.2 — brainpoolP384r1 TLS ECDH (excerpt)"
+curve_id = "brainpoolP384r1"
+dA_hex = "1e20f5e048a5886f1f157c74e91bde2b98c8b52d58e5003d57053fc4b0bd65d6f15eb5d1ee1610df870795143627d042"
+peer_x_qB_hex = "4d44326f269a597a5b58bba565da5556ed7fd9a8a9eb76c25f46db69d19dc8ce6ad18e404b15738b2086df37e71d1eb4"
+peer_y_qB_hex = "62d692136de56cbe93bf5fa3188ef58bc8a3a0ec6c1e151a21038a42e9185329b5b275903d192f8d4e1f32fe9cc78c48"
+shared_secret_x_Z_hex = "0bd9d3a7ea0b3d519d09d8e48d0785fb744a6b355e6304bc51c229fbbce239bbadf6403715c35d4fb2a5444f575d4f42"
+
+[[vectors]]
+description = "RFC 7027 A.3 — brainpoolP512r1 TLS ECDH (excerpt)"
+curve_id = "brainpoolP512r1"
+dA_hex = "16302ff0dbbb5a8d733dab7141c1b45acbc8715939677f6a56850a38bd87bd59b09e80279609ff333eb9d4c061231fb26f92eeb04982a5f1d1764cad57665422"
+peer_x_qB_hex = "9d45f66de5d67e2e6db6e93a59ce0bb48106097ff78a081de781cdb31fce8ccbaaea8dd4320c4119f1e9cd437a2eab3731fa9668ab268d871deda55a5473199f"
+peer_y_qB_hex = "2fdc313095bcdd5fb3a91636f07a959c8e86b5636a1e930e8396049cb481961d365cc11453a06c719835475b12cb52fc3c383bce35e27ef194512b71876285fa"
+shared_secret_x_Z_hex = "a7927098655f1f9976fa50a9d566865dc530331846381c87256baf3226244b76d36403c024d7bbf0aa0803eaff405d3d24f11a9b5c0bef679fe1454b21c4cd1f"

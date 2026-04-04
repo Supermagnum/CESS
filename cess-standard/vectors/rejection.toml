@@ -1,0 +1,52 @@
+# CESS v0.1 — Negative tests (expected_error vocabulary matches spec section 14)
+schema = "cess-rejection-v0.1"
+
+[[vectors]]
+description = "wrong PIN unwrap"
+operation = "pin_unwrap"
+expected_error = "AUTH_FAILED"
+
+[[vectors]]
+description = "duplicate share index in envelope"
+operation = "share_import"
+expected_error = "DUPLICATE_SHARE_INDEX"
+
+[[vectors]]
+description = "insufficient shares for threshold"
+operation = "sss_reconstruct"
+expected_error = "INSUFFICIENT_SHARES"
+
+[[vectors]]
+description = "corrupted erasure shard"
+operation = "rs_decode"
+expected_error = "INTEGRITY_FAILURE"
+
+[[vectors]]
+description = "PIN too short"
+operation = "pin_enroll"
+expected_error = "PIN_TOO_SHORT"
+
+[[vectors]]
+description = "invalid uncompressed EC point"
+operation = "ecdh"
+expected_error = "INVALID_EC_POINT"
+
+[[vectors]]
+description = "nonce reuse attempt"
+operation = "aead_encrypt"
+expected_error = "NONCE_REUSE"
+
+[[vectors]]
+description = "cross-curve KEM"
+operation = "ecdh"
+expected_error = "CROSS_CURVE_REJECTED"
+
+[[vectors]]
+description = "tampered share metadata"
+operation = "share_verify"
+expected_error = "INTEGRITY_FAILURE"
+
+[[vectors]]
+description = "AEAD nonce or key length invalid for profile (e.g. not 12-byte nonce for RFC 8439 ChaCha20-Poly1305)"
+operation = "aead_encrypt"
+expected_error = "INVALID_AEAD_INPUT"

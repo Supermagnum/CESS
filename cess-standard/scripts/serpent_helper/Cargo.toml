@@ -1,0 +1,9 @@
+[package]
+name = "serpent_helper"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serpent = "0.6.0-rc.3"
+cipher = "0.5"
+hex = "0.4"

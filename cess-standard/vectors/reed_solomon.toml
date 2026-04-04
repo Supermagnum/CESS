@@ -1,0 +1,68 @@
+# CESS v0.1 — Reed-Solomon style erasure shards (GF(2^8) evaluation at x=1..6, k=3)
+schema = "cess-rs-v0.1"
+
+[[vectors]]
+description = "3-of-6 erasure: six single-byte shards from degree-2 message polynomial"
+data_bytes_hex = "102030"
+shards_hex = [
+  { index = 0, shard_hex = "00", blake3 = "2d3adedff11b61f14c886e35afa036736dcd87a74d27b5c1510225d0f592e213" },
+  { index = 1, shard_hex = "90", blake3 = "2ba82451e7edbf091af9674a911051229b0452ba7b9276d5159d482a65517d17" },
+  { index = 2, shard_hex = "80", blake3 = "bbe6a9f5a0146a1f4d0381e9b0ed1ac2f1a979ce9d5ad84e46ff0b58f36b5f46" },
+  { index = 3, shard_hex = "bd", blake3 = "5392dd1a99f059a83fe1607df2f98fac54a51f4cfddfcd95eb053d1efc836f72" },
+  { index = 4, shard_hex = "ad", blake3 = "7baacf06b12883b439363d15ca4a83d6adc5d0b5b2373222cd0171c9328bfd65" },
+  { index = 5, shard_hex = "3d", blake3 = "12414ed4100d1cf184b2002a5084c3e8762688b62e2393a33739a3c26261b84e" },
+]
+recover_from = [
+  [0, 1, 2],
+  [0, 1, 3],
+  [0, 1, 4],
+  [0, 1, 5],
+  [0, 2, 3],
+  [0, 2, 4],
+  [0, 2, 5],
+  [0, 3, 4],
+  [0, 3, 5],
+  [0, 4, 5],
+  [1, 2, 3],
+  [1, 2, 4],
+  [1, 2, 5],
+  [1, 3, 4],
+  [1, 3, 5],
+  [1, 4, 5],
+  [2, 3, 4],
+  [2, 3, 5],
+  [2, 4, 5],
+  [3, 4, 5],
+]
+
+[[vectors]]
+description = "2-of-4 erasure shards (linear polynomial)"
+data_bytes_hex = "5566"
+shards_hex = [
+  { index = 0, shard_hex = "33", blake3 = "58d6fd3dc609068615d66b6a2616cce521e6bd49bbcd7854e3f2573b142c6637" },
+  { index = 1, shard_hex = "99", blake3 = "1372d2994d4fd72574ff76b110199fd328c850eaa87e3b457430de49168c163e" },
+  { index = 2, shard_hex = "ff", blake3 = "99d44d377bc5936d8cb7f5df90713d84c7587739b4724d3d2f9af1ee0e4c8efd" },
+  { index = 3, shard_hex = "d6", blake3 = "d364a97c48735573268b96eaa5f4f3eef5a593172f7362ffcfd68ba0701c95c3" },
+]
+recover_from = [
+  [0, 1],
+  [0, 2],
+  [0, 3],
+  [1, 2],
+  [1, 3],
+  [2, 3],
+]
+
+[[vectors]]
+description = "k-of-k (3-of-3) all shards required"
+data_bytes_hex = "deadbe"
+shards_hex = [
+  { index = 0, shard_hex = "cd", blake3 = "c8921a228e801db9a4c7e5852fbee236ae7a19e9de8ea80d6ca537ffc6e56893" },
+  { index = 1, shard_hex = "51", blake3 = "d95d2c94809a3857709bb281ed0aaeb4722ff502dd6118ab5f0116e450ca8720" },
+  { index = 2, shard_hex = "42", blake3 = "9f9524ca18c0cc03aef1a0b84faed9375e5d19575e9328e65fea72991f0f58cf" },
+]
+recover_from = [[0, 1, 2]]
+
+[[rejection_cases]]
+description = "k-1 shards present: cannot recover data"
+expected_error = "INSUFFICIENT_SHARDS"

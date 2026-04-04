@@ -1,0 +1,29 @@
+# CESS v0.1 — Brainpool ECDH (RFC 5639, BSI TR-03111 practices)
+schema = "cess-ecdh-brainpool-v0.1"
+
+[[vectors]]
+description = "BrainpoolP384r1 static ECDH between fixed test scalars"
+private_a_hex = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
+private_b_hex = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020002"
+shared_secret_hex = "51e74f0161365bac26a8eb7c41ff55cee6baae12a8ef638b37c846be59ed52eefdb73ca3e06ca30402373ac0e5175691"
+
+[[vectors]]
+description = "BrainpoolP512r1 static ECDH between fixed test scalars"
+private_a_hex = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
+private_b_hex = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020002"
+shared_secret_hex = "0cf4de5a030128978d3c47d470d1ba1b9bdc5a58962fc33cbd73b42ef33abb3a6ea4e01038e223cf2af6f729862550081ce1322bcba6bc7e5c0d4f2ff0f33d98"
+
+[[rejection_cases]]
+description = "cross-curve ECDH: P384 private with P512 peer public must be rejected"
+operation = "ecdh"
+expected_error = "CROSS_CURVE_REJECTED"
+
+[[rejection_cases]]
+description = "invalid encoding: point at infinity (implementation must reject)"
+operation = "ecdh"
+expected_error = "INVALID_EC_POINT"
+
+[[rejection_cases]]
+description = "coordinates not on curve (random bytes as public key)"
+operation = "ecdh"
+expected_error = "INVALID_EC_POINT"

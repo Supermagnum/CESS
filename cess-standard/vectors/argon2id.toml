@@ -1,0 +1,63 @@
+# CESS v0.1 — Argon2id per RFC 9106 at CESS profile
+# memory_kib = 65536, iterations = 3, parallelism = 4, salt = 16 bytes, output = 32 bytes
+schema = "cess-argon2id-v0.1"
+
+[[vectors]]
+description = "standard PIN at CESS parameters"
+pin = "correct horse battery staple"
+salt_hex = "0102030405060708090a0b0c0d0e0f10"
+memory_kib = 65536
+iterations = 3
+parallelism = 4
+output_length = 32
+argon2id_output_hex = "6ec690471257037ee9c75b275e6161c1c2f4335ab541400534dba6769a444397"
+
+[[vectors]]
+description = "5-character PIN boundary"
+pin = "abcde"
+salt_hex = "1112131415161718191a1b1c1d1e1f20"
+memory_kib = 65536
+iterations = 3
+parallelism = 4
+output_length = 32
+argon2id_output_hex = "9fc375e3021b98723db132c479a382aad86607673d1e8967f767dad4cb6f193d"
+
+[[vectors]]
+description = "all-numeric PIN"
+pin = "12345678"
+salt_hex = "2122232425262728292a2b2c2d2e2f30"
+memory_kib = 65536
+iterations = 3
+parallelism = 4
+output_length = 32
+argon2id_output_hex = "eae4a1e0c82b7add7757c77f6103df76c62fffb0ff8a1cf9885163c68c1d1d8b"
+
+[[vectors]]
+description = "all-alpha PIN"
+pin = "AlphaBeta"
+salt_hex = "3132333435363738393a3b3c3d3e3f40"
+memory_kib = 65536
+iterations = 3
+parallelism = 4
+output_length = 32
+argon2id_output_hex = "b1a9e29e361ab0b801a6dbd2389bcf8b98b98acc6a3990219c6e2da473b29689"
+
+[[vectors]]
+description = "mixed-case alphanumeric PIN"
+pin = "CeSs2026x"
+salt_hex = "4142434445464748494a4b4c4d4e4f50"
+memory_kib = 65536
+iterations = 3
+parallelism = 4
+output_length = 32
+argon2id_output_hex = "eadb36cac0f83ddd762788aca8f3464f8b49c7aade52bb4042f2e5cc37eae129"
+
+[[rejection_cases]]
+description = "PIN shorter than 5 characters"
+pin = "1234"
+expected_error = "PIN_TOO_SHORT"
+
+[[rejection_cases]]
+description = "empty PIN"
+pin = ""
+expected_error = "PIN_EMPTY"

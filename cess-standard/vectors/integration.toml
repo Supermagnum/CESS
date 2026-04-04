@@ -1,0 +1,36 @@
+# CESS v0.1 — End-to-end integration (hashes; 1 MiB payloads not inlined)
+schema = "cess-integration-v0.1"
+
+[[vectors]]
+description = "2-of-3, ChaCha20-Poly1305, 1 MiB all-zero payload"
+source_payload = "1 MiB all-zero"
+source_blake3_hex = "488de202f73bd976de4e7048f4e1f39a776d86d582b7348ff53bf432b987fca8"
+session_key_hex = "259f225302e459d15247109fce30181ba5bec70b8da78dd26011b29a95e3f5bd"
+encrypted_blob_blake3_hex = "5809b85ab858be98d57a6bfa311238a11f6e6306b6902b48f3623ce5038c23d1"
+threshold = 2
+n_shares = 3
+share_y_blake3_hashes = ['b660e81c79566878ce3d72e67e01903471642180198c4123ef0f7057795e4790', 'fe16f7d0a637b81708752769d7dcefe43496afd44012c2c745aa30bb86d8e6c6', 'ecbf493486c9548467a2f094f1085c7a1a4d113f03f088d84eba6ced397280c3']
+wrapped_shares_hex = ['60888850582525e68e498314d257d79328', '4f3f1e8b6c1fceae552cc64d796946f475', '03bd818021ce6c2b53abd439d3b62f9b93']
+
+[[vectors]]
+description = "3-of-5, Serpent cascade option, 1 MiB all-0xFF payload"
+source_payload = "1 MiB all-0xFF"
+source_blake3_hex = "036ba936bcdc69c638139eb67dcb044ddcc584d72cbb7d82a15cea70df2dd4cd"
+session_key_hex = "3bf8226e80afa78d8e6a1751ee884ab87580483d3d7cde2727ff065706d96d3f"
+encrypted_blob_blake3_hex = "c670b76d104858dea929a33c70ba05d790717ed56ff43008102a5a36bb644405"
+threshold = 3
+n_shares = 5
+cascade = true
+share_y_blake3_hashes = ['fefef50ec0aab3da282e1998d61f032951cb147829fd49ecbda13ddc2cf90eaf', '4889c6ba6664a3d43ab337e56fe73ce9e93d5796bdfae2f00b247def38d7e751', 'ed38bc0c78ada460af2c694f531d74d125d3094e4c9ebb44b097d03089e9c8cd', '4da72462973feec49125759d5ba83a0c61683dc839f4ae706b8b4501ba2f5182', '2ef3e0dda5293bda965d0adcedfc7d387244ac736a6014a720c1d63fa0ede02f']
+wrapped_shares_hex = ['8c0d5eeb5b19919bcd565ef4e38e7254c2', '6c1e9fa0e38ac01b528d51e3c40299b423', 'bf95d7bc6889e70cd3748fe148b95ee565', '955488aa1468601da1d32b684950e040d8', '5ccb2886dcdc2df91b8647fd719f39bf22']
+
+[[vectors]]
+description = "3-of-6, ChaCha20-Poly1305, 1 MiB PRNG payload"
+source_payload = "1 MiB SHA-256 chain (informative PRNG only)"
+source_blake3_hex = "812a37d4e0e1d6a5343acd551781cb4095a85f2807820bc45afe6869d2fa7f22"
+session_key_hex = "f59e324523378a01db7038c69c92c9b99a33c59cd89dcc7b94005aef596bdde4"
+encrypted_blob_blake3_hex = "6a7ab9e5ce370ff554074a2dd61876a774b01dce7fb40a16949f6a80276e6879"
+threshold = 3
+n_shares = 6
+share_y_blake3_hashes = ['2180becb7d08983a990c2816953b1fb5468da5d23c9818bd3a580e2ccf2542b3', '7219aa1099ced7445c5bf949990ff7d9f6b71a94b8ec02b3eb61fb175a66ba25', 'ca9fba296cab1ffbd9597311a1d79a06dfaf0909995a00a98a7e361fb67158e9', '0538661423236a5d8df6286a8633369e2a03c5f90d48eded333222dbee8cdbdd', 'e9c0ba08015769a0c4354594b96ce0dfbf27c9eb534a2f8378508985f732ff6d', 'fcde460ea778a115ddfe9c25c37975b118d967cc52ccfd1b1e2a5c3926bf0bf2']
+wrapped_shares_hex = ['75795a7397a53f37957d50135eae1da5b6', '207d01e84d3aec3773b0dd473c662a2ae4', '75ca6a9ee0d99cf42dab0881613d5cea3c', '5afe740dce28d626dcf9ace13ccc29bc5e', '45eb8e56d3d8596068da44a78dbd178ce3', 'db4682ead802662ecc920d6f4446bbb993']

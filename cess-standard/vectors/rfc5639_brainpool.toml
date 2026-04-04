@@ -1,0 +1,26 @@
+# CESS cross-reference: RFC 5639 domain parameters (brainpoolP*r1)
+# Full tables: ../testdata/rfc5639/rfc5639_brainpool_domain_parameters.json
+# BSI TR-03111 references RFC 5639 curves and defines ECC profiles; official TR-03111
+# test vectors are distributed as PDF (not vendored here). Encoding conventions for
+# field elements match SEC1 as used in RFC 7027 Appendix A.
+schema = "cess-rfc5639-brainpool-v0.1"
+
+source = "RFC 5639 Sections 3.4, 3.6, 3.7"
+bsi_tr03111_note = "BSI TR-03111 (Elliptic Curve Cryptography) — see BSI publications for ECDH test vectors and profile rules; align with SEC1/RFC 5639 parameter sets"
+
+openssl_verification = "scripts/rfc5639_brainpool_domain_parameters.py (ecparam -param_enc explicit)"
+
+[[vectors]]
+description = "RFC 5639 3.4 — brainpoolP256r1 field prime p (excerpt)"
+curve_id = "brainpoolP256r1"
+p_hex_prefix = "a9fb57dba1eea9bc3e660a909d838d7"
+
+[[vectors]]
+description = "RFC 5639 3.6 — brainpoolP384r1 field prime p (excerpt)"
+curve_id = "brainpoolP384r1"
+p_hex_prefix = "8cb91e82a3386d280f5d6f7e50e641df152f7109ed5456b412b1da197fb71123"
+
+[[vectors]]
+description = "RFC 5639 3.7 — brainpoolP512r1 field prime p (excerpt)"
+curve_id = "brainpoolP512r1"
+p_hex_prefix = "aadd9db8dbe9c48b3fd4e6ae33c9fc07cb308db3b3c9d20ed6639cca703308717d4d9b009bc66842aecda12ae6a380e62881ff2f2d82c68528aa6056583a48f3"

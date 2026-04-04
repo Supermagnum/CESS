@@ -1,0 +1,165 @@
+# CESS v0.1 — Shamir Secret Sharing over GF(2^8), field polynomial x^8+x^4+x^3+x+1 (0x11B)
+schema = "cess-sss-v0.1"
+
+[[vectors]]
+description = "2-of-3 sharing with secret 0x42 and linear term 0xAB"
+secret_byte = 0x42
+threshold = 2
+n_shares = 3
+coefficients = [0x42, 0xab]
+shares = [
+  { x = 0x01, y = 0xe9 },
+  { x = 0x02, y = 0x0f },
+  { x = 0x03, y = 0xa4 },
+]
+recover_from = [
+  [0, 1],
+  [0, 2],
+  [1, 2],
+]
+
+[[vectors]]
+description = "3-of-5 sharing with secret 0x11 and quadratic polynomial"
+secret_byte = 0x11
+threshold = 3
+n_shares = 5
+coefficients = [0x11, 0x33, 0x55]
+shares = [
+  { x = 0x01, y = 0x77 },
+  { x = 0x02, y = 0x38 },
+  { x = 0x03, y = 0x5e },
+  { x = 0x04, y = 0xfa },
+  { x = 0x05, y = 0x9c },
+]
+recover_from = [
+  [0, 1, 2],
+  [1, 3, 4],
+  [0, 2, 4],
+]
+
+[[vectors]]
+description = "3-of-6 all C(6,3)=20 recovery combinations (share indices 0..5 map to x=1..6)"
+secret_byte = 0x77
+threshold = 3
+n_shares = 6
+coefficients = [0x77, 0x01, 0x02]
+shares = [
+  { x = 0x01, y = 0x74 },
+  { x = 0x02, y = 0x7d },
+  { x = 0x03, y = 0x7e },
+  { x = 0x04, y = 0x53 },
+  { x = 0x05, y = 0x50 },
+  { x = 0x06, y = 0x59 },
+]
+recover_from = [
+  [0, 1, 2],
+  [0, 1, 3],
+  [0, 1, 4],
+  [0, 1, 5],
+  [0, 2, 3],
+  [0, 2, 4],
+  [0, 2, 5],
+  [0, 3, 4],
+  [0, 3, 5],
+  [0, 4, 5],
+  [1, 2, 3],
+  [1, 2, 4],
+  [1, 2, 5],
+  [1, 3, 4],
+  [1, 3, 5],
+  [1, 4, 5],
+  [2, 3, 4],
+  [2, 3, 5],
+  [2, 4, 5],
+  [3, 4, 5],
+]
+
+[[vectors]]
+description = "k-of-k (3-of-3) minimal quorum"
+secret_byte = 0xaa
+threshold = 3
+n_shares = 3
+coefficients = [0xaa, 0xbb, 0xcc]
+shares = [
+  { x = 0x01, y = 0xdd },
+  { x = 0x02, y = 0xda },
+  { x = 0x03, y = 0xad },
+]
+recover_from = [
+  [0, 1, 2],
+]
+
+[[vectors]]
+description = "1-of-5 degenerate case: constant polynomial, all y equal secret"
+secret_byte = 0x5a
+threshold = 1
+n_shares = 5
+coefficients = [0x5a]
+shares = [
+  { x = 0x01, y = 0x5a },
+  { x = 0x02, y = 0x5a },
+  { x = 0x03, y = 0x5a },
+  { x = 0x04, y = 0x5a },
+  { x = 0x05, y = 0x5a },
+]
+recover_from = [
+  [0],
+  [1],
+  [4],
+]
+
+[[vectors]]
+description = "all-zero secret byte"
+secret_byte = 0x00
+threshold = 2
+n_shares = 4
+coefficients = [0x00, 0x3c]
+shares = [
+  { x = 0x01, y = 0x3c },
+  { x = 0x02, y = 0x78 },
+  { x = 0x03, y = 0x44 },
+  { x = 0x04, y = 0xf0 },
+]
+recover_from = [
+  [0, 1],
+  [2, 3],
+]
+
+[[vectors]]
+description = "all-0xFF secret byte"
+secret_byte = 0xff
+threshold = 2
+n_shares = 4
+coefficients = [0xff, 0x01]
+shares = [
+  { x = 0x01, y = 0xfe },
+  { x = 0x02, y = 0xfd },
+  { x = 0x03, y = 0xfc },
+  { x = 0x04, y = 0xfb },
+]
+recover_from = [
+  [0, 3],
+]
+
+[[vectors]]
+description = "maximum n=255 with k=2: first four shares, last share, and reconstruction from indices 0 and 254"
+secret_byte = 0x99
+threshold = 2
+n_shares = 255
+coefficients = [0x99, 0x01]
+shares_sample = [
+  { index = 0, x = 0x01, y = 0x98 },
+  { index = 1, x = 0x02, y = 0x9b },
+  { index = 2, x = 0x03, y = 0x9a },
+  { index = 253, x = 0xfe, y = 0x67 },
+  { index = 254, x = 0xff, y = 0x66 },
+]
+recover_from = [[0, 254]]
+
+[[vectors]]
+description = "reconstruction with duplicate x index must fail (duplicate share index)"
+expected_error = "DUPLICATE_SHARE_INDEX"
+
+[[vectors]]
+description = "integrity failure when share y does not match polynomial"
+expected_error = "INTEGRITY_FAILURE"

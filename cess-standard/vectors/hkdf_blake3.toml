@@ -1,0 +1,42 @@
+# CESS v0.1 — HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3 as PRF)
+schema = "cess-hkdf-blake3-v0.1"
+
+[[vectors]]
+description = "classical-only ECDH shared secret expanded to session key"
+ikm_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+salt_hex = ""
+info_utf8 = "cess-kem-v1"
+output_length = 32
+okm_hex = "56c614e8527a62ffdf5dcd7e6f11514201a89016f125925019d81f81a9f5225c"
+
+[[vectors]]
+description = "classical-only with explicit salt"
+ikm_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+salt_hex = "0000000000000000000000000000000000000000000000000000000000000000"
+info_utf8 = "cess-kem-v1"
+output_length = 32
+okm_hex = "56c614e8527a62ffdf5dcd7e6f11514201a89016f125925019d81f81a9f5225c"
+
+[[vectors]]
+description = "hybrid classical || PQ combiner input"
+ikm_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d94316cb64a779d4141c8779fafbe42974d058076d303a69f1af9d689e04518502"
+salt_hex = ""
+info_utf8 = "cess-kem-v1"
+output_length = 32
+okm_hex = "9b5d00ed9b5fdb6701ce25304fbe228f4f9ebffa967e147e82f6304b28e2ea5e"
+
+[[vectors]]
+description = "PIN wrap KDF info cess-pin-v1"
+ikm_hex = "face1bf3a3261bb9ac71ce64c1f9719a70f208496b4acd98ad5955c45fdd6dfc"
+salt_hex = ""
+info_utf8 = "cess-pin-v1"
+output_length = 32
+okm_hex = "cb3805b81c7be26fe8dcbbb8281b195984e8cd77d9f2f58fa7bd177e93dd4ca5"
+
+[[vectors]]
+description = "64-byte expanded output"
+ikm_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+salt_hex = ""
+info_utf8 = "cess-kem-v1"
+output_length = 64
+okm_hex = "56c614e8527a62ffdf5dcd7e6f11514201a89016f125925019d81f81a9f5225c1dd33ac43d0e19a2f5d7e1fd2735c1d2a468be5ed0c63d4ce7a59f4230d1bf16"

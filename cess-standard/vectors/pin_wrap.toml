@@ -1,0 +1,30 @@
+# CESS v0.1 — PIN wrap: Argon2id -> HKDF-BLAKE3 -> AEAD
+schema = "cess-pin-wrap-v0.1"
+
+[[vectors]]
+description = "Argon2id to HKDF-BLAKE3 to ChaCha20-Poly1305 wrap of 3-byte share"
+pin = "correct horse battery staple"
+salt_hex = "0102030405060708090a0b0c0d0e0f10"
+argon2id_output_hex = "6ec690471257037ee9c75b275e6161c1c2f4335ab541400534dba6769a444397"
+wrap_key_hex = "68d427bce548ba4832bbdf56a519bf2b197a4c1ca021cc81c787c3b323c82ed3"
+nonce_hex = "010101010101010101010101"
+share_plain_hex = "421199"
+wrapped_share_hex = "69e0f22808f0f3baebb1a4ce615f4734ab6f7b"
+
+[[vectors]]
+description = "Same HKDF-BLAKE3 key (cess-pin-v1) with Serpent-256-CTR wrap of same 3-byte share"
+pin = "correct horse battery staple"
+salt_hex = "0102030405060708090a0b0c0d0e0f10"
+argon2id_output_hex = "6ec690471257037ee9c75b275e6161c1c2f4335ab541400534dba6769a444397"
+wrap_key_hex = "68d427bce548ba4832bbdf56a519bf2b197a4c1ca021cc81c787c3b323c82ed3"
+ctr_iv_hex = "11278e71f72c8a7f08afaefc85b24955"
+share_plain_hex = "421199"
+wrapped_share_hex = "cfcec6"
+
+[[rejection_cases]]
+description = "wrong PIN yields AUTH_FAILED and no partial plaintext"
+expected_error = "AUTH_FAILED"
+
+[[rejection_cases]]
+description = "bit-flipped wrapped share ciphertext"
+expected_error = "AUTH_FAILED"

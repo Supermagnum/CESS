@@ -1,0 +1,19 @@
+---
+description: CESS contribution style — authoritative guide for AI and human edits
+alwaysApply: true
+---
+
+# CESS style
+
+Treat **`cess-standard/STYLE-GUIDE.md`** as the authoritative guide for **all** contributions (Claude Code, Cursor, other AI tools, and humans). **`cess-standard/CONTRIBUTING.md`** governs patents, reviews, registry, and crypto exclusions when this rule and that file overlap on process.
+
+**Keep in mind:**
+
+- Scope changes to the task; avoid drive-by refactors and unrelated files.
+- No emojis in code, comments, commits, or documentation.
+- Do not add or expand markdown (including investigation reports) unless the task or a maintainer explicitly asks.
+- Do not commit or push to shared remotes unless a maintainer asked for that change.
+- Test vectors: lowercase hex unless a format requires otherwise; cite sources for vendored corpora.
+- Respect CESS cryptographic and runner constraints in CONTRIBUTING (exclusion list, transitive deps).
+
+When instructions conflict, follow **`STYLE-GUIDE.md`** and **`CONTRIBUTING.md`** over ad-hoc preferences.

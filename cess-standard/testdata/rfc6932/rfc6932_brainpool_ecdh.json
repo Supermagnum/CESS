@@ -1,0 +1,55 @@
+{
+  "source": "RFC 6932 Appendix A (Informational)",
+  "title": "Brainpool Elliptic Curves for IKE — Test Data",
+  "note": "Shared ECDH output is the x-coordinate of the agreed point (big-endian, field width), matching OpenSSL/cryptography and elliptic_curve SharedSecret::raw_secret_bytes.",
+  "curves": [
+    {
+      "id": "brainpoolP224r1",
+      "section": "A.1",
+      "dA": "7c4b7a2c8a4bad1fbb7d79cc0955db7c6a4660ca64cc4778159b495e",
+      "x_qA": "b104a67a6f6e85e14ec1825e1539e8ecdbbf584922367dd88c6bdcf2",
+      "y_qA": "46d782e7fdb5f60cd8404301ac5949c58edb26bc68ba07695b750a94",
+      "dB": "63976d4aae6cd0f6dd18defef55d96569d0507c03e74d6486ffa28fb",
+      "x_qB": "2a97089a9296147b71b21a4b574e1278245b536f14d8c2b9d07a874e",
+      "y_qB": "9b900d7c77a709a797276b8ca1ba61bb95b546fc29f862e44d59d25b",
+      "x_Z": "312dfd98783f9fb77b9704945a73beb6dccbe3b65d0f967dcab574eb",
+      "y_Z": "6f800811d64114b1c48c621ab3357cf93f496e4238696a2a012b3c98"
+    },
+    {
+      "id": "brainpoolP256r1",
+      "section": "A.2",
+      "dA": "041eb8b1e2bc681bce8e39963b2e9fc415b05283313dd1a8bcc055f11ae49699",
+      "x_qA": "78028496b5ecaab3c8b6c12e45db1e02c9e4d26b4113bc4f015f60c5ccc0d206",
+      "y_qA": "a2ae1762a3831c1d20f03f8d1e3c0c39afe6f09b4d44bbe80cd100987b05f92b",
+      "dB": "06f5240eacdb9837bc96d48274c8aa834b6c87ba9cc3eedd81f99a16b8d804d3",
+      "x_qB": "8e07e219ba588916c5b06aa30a2f464c2f2acfc1610a3be2fb240b635341f0db",
+      "y_qB": "148ea1d7d1e7e54b9555b6c9ac90629c18b63bee5d7aa6949ebbf47b24fde40d",
+      "x_Z": "05e940915549e9f6a4a75693716e37466aba79b4bf2919877a16dd2cc2e23708",
+      "y_Z": "6bc23b6702bc5a019438ceea107daad8b94232ffbbc350f3b137628fe6fd134c"
+    },
+    {
+      "id": "brainpoolP384r1",
+      "section": "A.3",
+      "dA": "014ec0755b78594ba47fb0a56f6173045b4331e74ba1a6f47322e70d79d828d97e095884ca72b73fdabd5910df0fa76a",
+      "x_qA": "45cb26e4384daf6fb776885307b9a38b7ad1b5c692e0c32f0125332778f3b8d3f50ca358099b30deb5ee69a95c058b4e",
+      "y_qA": "8173a1c54affa7e781d0e1e1d12c0dc2b74f4df58e4a4e3af7026c5d32dc530a2cd89c859bb4b4b768497f49ab8cc859",
+      "dB": "6b461cb79bd0ea519a87d6828815d8ce7cd9b3caa0b5a8262cbcd550a015c90095b976f3529957506e1224a861711d54",
+      "x_qB": "01bf92a92ee4be8ded1a911125c209b03f99e3161cfcc986dc7711383fc30af9ce28ca3386d59e2c8d72ce1e7b4666e8",
+      "y_qB": "3289c4a3a4fee035e39bdb885d509d224a142ff9fbcc5cfe5ccbb30268ee47487ed8044858d31d848f7a95c635a347ac",
+      "x_Z": "04cc4ff3dcccb07af24e0acc529955b36d7c807772b92fcbe48f3afe9a2f370a1f98d3fa73fd0c0747c632e12f1423ec",
+      "y_Z": "7f465f90bd69afb8f828a214eb9716d66abc59f17af7c75ee7f1de22ab5d05085f5a01a9382d05bf72d96698fe3ff64e"
+    },
+    {
+      "id": "brainpoolP512r1",
+      "section": "A.4",
+      "dA": "636b6be0482a6c1c41aa7ae7b245e983392db94cecea2660a379cfe159559e357581825391175fc195d28bac0cf03a7841a383b95c262b983782874cce6fe333",
+      "x_qA": "0562e68b9af7cbfd5565c6b16883b777ff11c199161ecc427a39d17ec2166499389571d6a994977c56ad8252658ba8a1b72ae42f4fb7532151afc3ef0971ccda",
+      "y_qA": "a7ca2d8191e21776a89860afbc1f582faa308d551c1dc6133af9f9c3cad59998d70079548140b90b1f311afb378aa81f51b275b2be6b7dee978efc7343ea642e",
+      "dB": "0af4e7f6d52edd52907bb8dbab3992a0bb696ec10df11892ff205b66d381ece72314e6a6ea079cea06961dba5ae6422ef2e9ee803a1f236fb96a1799b86e5c8b",
+      "x_qB": "5a7954e32663dff11ae24712d87419f26b708ac2b92877d6bfee2bfc43714d89bbdb6d24d807bbd3aeb7f0c325f862e8bade4f74636b97eaace739e11720d323",
+      "y_qB": "96d14621a9283a1bed84de8dd64836b2c0758b11441179dc0c54c0d49a47c03807d171dd544b72caaef7b7ce01c7753e2cad1a861eca55a71954ee1ba35e04be",
+      "x_Z": "1ee8321a4bbf93b9cf8921ab209850ec9b7066d1984ef08c2bb723236208ac8f1a483e79461a00e0d5f6921ce9d360502f85c812bedee23ac5b210e5811b191e",
+      "y_Z": "2632095b7b936174b41fd2faf369b1d18dcadeed7e410a7e251f0831097c50d02cfed02607b6a2d5adb4c0006008562218631875b58b54ecda5a4f9fe9eaaba6"
+    }
+  ]
+}
