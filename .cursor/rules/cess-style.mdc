@@ -5,7 +5,7 @@ alwaysApply: true
 
 # CESS style
 
-Treat **`cess-standard/STYLE-GUIDE.md`** as the authoritative guide for **all** contributions (Claude Code, Cursor, other AI tools, and humans). **`cess-standard/CONTRIBUTING.md`** governs patents, reviews, registry, and crypto exclusions when this rule and that file overlap on process.
+Treat **`STYLE-GUIDE.md`** (repository root) as the authoritative guide for **all** contributions (Claude Code, Cursor, other AI tools, and humans). **`CONTRIBUTING.md`** governs patents, reviews, registry, and crypto exclusions when this rule and that file overlap on process.
 
 **Keep in mind:**
 

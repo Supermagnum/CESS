@@ -1,7 +1,4 @@
-# Python
-**/.venv/
-**/__pycache__/
+.venv/
+target/
+__pycache__/
 *.pyc
-
-# Rust
-**/target/
