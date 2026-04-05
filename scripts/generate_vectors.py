@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate all CESS v0.1 TOML test vectors. Run: .venv/bin/python scripts/generate_vectors.py"""
+"""Generate all CESS v0.2 TOML test vectors. Run: .venv/bin/python scripts/generate_vectors.py"""
 from __future__ import annotations
 
 import hashlib
@@ -160,8 +160,8 @@ def hex_spaced(b: bytes, group: int = 4) -> str:
 
 def write_sss(root: Path) -> None:
     lines: list[str] = []
-    lines.append("# CESS v0.1 — Shamir Secret Sharing over GF(2^8), field polynomial x^8+x^4+x^3+x+1 (0x11B)")
-    lines.append('schema = "cess-sss-v0.1"')
+    lines.append("# CESS v0.2 — Shamir Secret Sharing over GF(2^8), field polynomial x^8+x^4+x^3+x+1 (0x11B)")
+    lines.append('schema = "cess-sss-v0.2"')
     lines.append("")
 
     def add_vec(
@@ -296,8 +296,8 @@ def write_sss(root: Path) -> None:
 
 def write_blake3(root: Path) -> None:
     lines = [
-        '# CESS v0.1 — BLAKE3 digest and keyed MAC',
-        'schema = "cess-blake3-v0.1"',
+        '# CESS v0.2 — BLAKE3 digest and keyed MAC',
+        'schema = "cess-blake3-v0.2"',
         "",
     ]
 
@@ -340,9 +340,9 @@ def write_argon2id(root: Path) -> None:
         salt_len=16,
     )
     lines = [
-        "# CESS v0.1 — Argon2id per RFC 9106 at CESS profile",
+        "# CESS v0.2 — Argon2id per RFC 9106 at CESS profile",
         "# memory_kib = 65536, iterations = 3, parallelism = 4, salt = 16 bytes, output = 32 bytes",
-        'schema = "cess-argon2id-v0.1"',
+        'schema = "cess-argon2id-v0.2"',
         "",
     ]
 
@@ -397,8 +397,8 @@ def write_argon2id(root: Path) -> None:
 
 def write_hkdf(root: Path) -> None:
     lines = [
-        "# CESS v0.1 — HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3 as PRF)",
-        'schema = "cess-hkdf-blake3-v0.1"',
+        "# CESS v0.2 — HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3 as PRF)",
+        'schema = "cess-hkdf-blake3-v0.2"',
         "",
     ]
 
@@ -429,8 +429,8 @@ def write_hkdf(root: Path) -> None:
 
 def write_ecdh_brainpool(root: Path) -> None:
     lines = [
-        "# CESS v0.1 — Brainpool ECDH (RFC 5639, BSI TR-03111 practices)",
-        'schema = "cess-ecdh-brainpool-v0.1"',
+        "# CESS v0.2 — Brainpool ECDH (RFC 5639, BSI TR-03111 practices)",
+        'schema = "cess-ecdh-brainpool-v0.2"',
         "",
     ]
     # Fixed private scalars (small integers valid on both curves for static test)
@@ -506,9 +506,9 @@ def write_bulk_aead(root: Path) -> None:
     ct_large = chacha_poly(large_pt, aad, nonce12)
 
     lines = [
-        "# CESS v0.1 — ChaCha20-Poly1305 (RFC 8439), Serpent-256-CTR + Poly1305, cascade",
+        "# CESS v0.2 — ChaCha20-Poly1305 (RFC 8439), Serpent-256-CTR + Poly1305, cascade",
         "# Serpent-CTR from scripts/serpent_helper; Poly1305 MAC per RFC 8439 padding on aad||ciphertext",
-        'schema = "cess-bulk-aead-v0.1"',
+        'schema = "cess-bulk-aead-v0.2"',
         "",
         "[[vectors]]",
         'description = "ChaCha20-Poly1305 standard message with AAD"',
@@ -608,8 +608,8 @@ def write_pin_wrap(root: Path) -> None:
     iv_serp = hashlib.sha256(b"pin-wrap-serpent-iv").digest()[:16]
     wrapped_serp = serpent_ctr_bytes(wrap_key, iv_serp, share_plain)
     lines = [
-        "# CESS v0.1 — PIN wrap: Argon2id -> HKDF-BLAKE3 -> AEAD",
-        'schema = "cess-pin-wrap-v0.1"',
+        "# CESS v0.2 — PIN wrap: Argon2id -> HKDF-BLAKE3 -> AEAD",
+        'schema = "cess-pin-wrap-v0.2"',
         "",
         "[[vectors]]",
         'description = "Argon2id to HKDF-BLAKE3 to ChaCha20-Poly1305 wrap of 3-byte share"',
@@ -649,8 +649,8 @@ def write_reed_solomon(root: Path) -> None:
     data = [0x10, 0x20, 0x30]
     shards = [poly_eval(data, x) for x in range(1, 7)]
     lines = [
-        "# CESS v0.1 — Reed-Solomon style erasure shards (GF(2^8) evaluation at x=1..6, k=3)",
-        'schema = "cess-rs-v0.1"',
+        "# CESS v0.2 — Reed-Solomon style erasure shards (GF(2^8) evaluation at x=1..6, k=3)",
+        'schema = "cess-rs-v0.2"',
         "",
         "[[vectors]]",
         'description = "3-of-6 erasure: six single-byte shards from degree-2 message polynomial"',
@@ -712,8 +712,8 @@ def write_reed_solomon(root: Path) -> None:
 
 def write_rejection(root: Path) -> None:
     lines = [
-        "# CESS v0.1 — Negative tests (expected_error vocabulary matches spec section 14)",
-        'schema = "cess-rejection-v0.1"',
+        "# CESS v0.2 — Negative tests (expected_error vocabulary matches spec section 14)",
+        'schema = "cess-rejection-v0.2"',
         "",
         "[[vectors]]",
         'description = "wrong PIN unwrap"',
@@ -833,8 +833,8 @@ def write_integration(root: Path) -> None:
     p3 = pipeline("vec-3of6-chacha-prng", mib_prng(), 3, 6, [0, 0, 0], False)
 
     lines = [
-        "# CESS v0.1 — End-to-end integration (hashes; 1 MiB payloads not inlined)",
-        'schema = "cess-integration-v0.1"',
+        "# CESS v0.2 — End-to-end integration (hashes; 1 MiB payloads not inlined)",
+        'schema = "cess-integration-v0.2"',
         "",
         "[[vectors]]",
         f'description = "2-of-3, ChaCha20-Poly1305, 1 MiB all-zero payload"',

@@ -1,5 +1,5 @@
-# CESS v0.1 — Negative tests (expected_error vocabulary matches spec section 14)
-schema = "cess-rejection-v0.1"
+# CESS v0.2 — Negative tests (expected_error vocabulary matches spec section 14)
+schema = "cess-rejection-v0.2"
 
 [[vectors]]
 description = "wrong PIN unwrap"

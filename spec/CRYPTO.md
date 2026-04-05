@@ -1,8 +1,8 @@
 # CESS cryptographic rationale (informative)
 
-**Version:** 0.1-draft  
+**Version:** 0.2-draft  
 
-This document explains **why** CESS selects specific primitives, **why** excluded algorithms are rejected, and gives **argument sketches** for composition security. It is **not** normative; `spec/CESS-v0.1.md` is authoritative.
+This document explains **why** CESS selects specific primitives, **why** excluded algorithms are rejected, and gives **argument sketches** for composition security. It is **not** normative; `spec/CESS-v0.2.md` is authoritative.
 
 ## 1. Primitive choices
 
@@ -21,6 +21,10 @@ BLAKE3 offers **high throughput**, **tree** hashing for parallelism, and **keyed
 ### 1.4 Brainpool ECDH (RFC 5639)
 
 Brainpool curves are **verifiably** generated without NSA “magic constants” in the same sense as NIST curves; **BSI TR-03111** references Brainpool for government-grade ECC. Point validation prevents **invalid curve** and **small-subgroup** attacks.
+
+### 1.4.1 Mode A outer session anchor (informative)
+
+The **Mode A** outer wrapper is **explicitly**: **ephemeral** BrainpoolP384r1 ECDH; **HKDF-BLAKE3** with `info = cess-outer-envelope-v1` to a 32-byte **`K_outer`**; **ChaCha20-Poly1305** keyed by **`K_outer`**; **outer** plaintext = **16-bit** `suite_id` (big-endian) **||** `inner_blob` (Section 6.6 of `spec/CESS-v0.2.md`). The classical ECDH step is **fixed** to BrainpoolP384r1 (Section 6.1.1). **Every** primitive in that stack is already approved in the registry; **no** new dependencies are introduced. Rationale for P384 only: the curve is already in the approved registry as a classical KEM; it is **BSI**-aligned with no NSA-designed parameters; it offers roughly **192-bit** classical security in a lighter package than BrainpoolP512r1 while remaining stronger than P-256-class curves; anchoring the mandatory outer layer on one registry-approved curve gives a single audited interoperability point for all CESS Mode A sessions.
 
 ### 1.5 ChaCha20-Poly1305 (RFC 8439)
 

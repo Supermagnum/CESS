@@ -1,5 +1,5 @@
-# CESS v0.1 — Reed-Solomon style erasure shards (GF(2^8) evaluation at x=1..6, k=3)
-schema = "cess-rs-v0.1"
+# CESS v0.2 — Reed-Solomon style erasure shards (GF(2^8) evaluation at x=1..6, k=3)
+schema = "cess-rs-v0.2"
 
 [[vectors]]
 description = "3-of-6 erasure: six single-byte shards from degree-2 message polynomial"

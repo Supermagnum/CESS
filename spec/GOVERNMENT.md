@@ -1,6 +1,6 @@
 # Government and high-security deployment guidance (informative)
 
-**Version:** 0.1-draft  
+**Version:** 0.2-draft  
 
 This note supports procurement officers, architects, and security officers evaluating CESS for **government** and **regulated** environments. It is **not** legal advice.
 
@@ -67,7 +67,7 @@ For deployments that adopt CESS **as specified**, the following **classes** of d
 - **NSA-designed block ciphers** (e.g. AES) and **NSA-designed hash families** (SHA-2; SHA-3 per CESS exclusion policy) as **mandated** CESS primitives.  
 - **NIST elliptic curves** (P-256, P-384, P-521) for **classical ECDH** in the normative CESS profile; **Brainpool** (RFC 5639) is used instead, with **BSI**-aligned practice as an informative reference.  
 - **ML-KEM / Kyber** as the **default** post-quantum KEM under CESS policy; alternative PQ candidates are listed in the registry for **hybrid** use.  
-- **Exclusive** reliance on **NIST SP 800-series** or **FIPS-only** evidence as the **sole** audit basis for the **cipher-agnostic** layer (the specification explicitly allows other evidence; see `spec/CESS-v0.1.md`).
+- **Exclusive** reliance on **NIST SP 800-series** or **FIPS-only** evidence as the **sole** audit basis for the **cipher-agnostic** layer (the specification explicitly allows other evidence; see `spec/CESS-v0.2.md`).
 
 CESS does **not** remove the need for **sound implementation**, **key management**, or **organisational** controls; it narrows **algorithmic** lock-in to US-centric suites for the **documented** stack.
 
@@ -111,7 +111,7 @@ Where the threat model includes a **former ally** acting as an **active** advers
 
 **BLS12-381** pairing-based signatures support **short** signatures, **aggregation**, and **threshold** schemes with substantial **open** ecosystem use and **peer-reviewed** analysis. For **policy signing**, **federated issuance**, and **k-of-n** approval of high-impact actions, **BLS12-381 threshold signatures** are a strong **technical** complement to CESS’s **secret-sharing** and **AEAD** layers: CESS protects **material** at rest and in transit under chosen suites; **BLS threshold** deployments can reduce reliance on a **single** national or former-alliance **signing** root for **operational** decisions.
 
-**Note:** BLS12-381 is **not** part of the CESS v0.1 **normative** algorithm registry. Governments SHOULD treat it as an **adjacent** governance and PKI technology to be integrated under **national** policy and, if proposed for CESS interop, through **`ALGORITHM-REGISTRY.md`** review.
+**Note:** BLS12-381 is **not** part of the CESS v0.2 **normative** algorithm registry. Governments SHOULD treat it as an **adjacent** governance and PKI technology to be integrated under **national** policy and, if proposed for CESS interop, through **`ALGORITHM-REGISTRY.md`** review.
 
 ### 8.6 ITAR, EAR, and open published standards (high level)
 

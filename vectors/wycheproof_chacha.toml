@@ -1,7 +1,7 @@
 # CESS cross-reference: Wycheproof ChaCha20-Poly1305 (subset + metadata)
 # Full corpus: ../testdata/wycheproof/chacha20_poly1305_test.json (325 vectors, Apache-2.0)
 # Verification: runner `wycheproof_chacha` — all cases PASS against chacha20poly1305 0.10.1
-schema = "cess-wycheproof-chacha-v0.1"
+schema = "cess-wycheproof-chacha-v0.2"
 
 source = "C2SP/wycheproof testvectors_v1/chacha20_poly1305_test.json"
 wycheproof_vectors_in_file = 325

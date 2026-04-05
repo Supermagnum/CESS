@@ -1,5 +1,5 @@
-# CESS v0.1 — HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3 as PRF)
-schema = "cess-hkdf-blake3-v0.1"
+# CESS v0.2 — HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3 as PRF)
+schema = "cess-hkdf-blake3-v0.2"
 
 [[vectors]]
 description = "classical-only ECDH shared secret expanded to session key"

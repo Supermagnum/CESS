@@ -17,7 +17,7 @@ By opening a pull request that is merged into this repository, you agree to the 
 ## Algorithm and registry changes
 
 - New or updated algorithms MUST go through [`ALGORITHM-REGISTRY.md`](ALGORITHM-REGISTRY.md): evidence of **two qualifying audits**, exclusion checks, and identifier assignment.  
-- Normative references in `spec/CESS-v0.1.md` MUST stay consistent with the registry.
+- Normative references in `spec/CESS-v0.2.md` MUST stay consistent with the registry.
 
 ## Test vectors
 

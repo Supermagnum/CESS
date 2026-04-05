@@ -1,5 +1,5 @@
-# CESS v0.1 — End-to-end integration (hashes; 1 MiB payloads not inlined)
-schema = "cess-integration-v0.1"
+# CESS v0.2 — End-to-end integration (hashes; 1 MiB payloads not inlined)
+schema = "cess-integration-v0.2"
 
 [[vectors]]
 description = "2-of-3, ChaCha20-Poly1305, 1 MiB all-zero payload"

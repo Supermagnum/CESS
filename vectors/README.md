@@ -4,14 +4,14 @@ Machine-readable vectors use **TOML** with `[[vectors]]` and `[[rejection_cases]
 
 ## Schemas
 
-Each file begins with a `schema` key identifying the format revision, e.g. `cess-sss-v0.1`.
+Each file begins with a `schema` key identifying the format revision, e.g. `cess-sss-v0.2`.
 
 ## How to use
 
 1. Load the appropriate `.toml` file for the subsystem under test.  
 2. For each `[[vectors]]` entry, run the operation under test with `description` as human context.  
 3. Compare outputs to the `*_hex` expected fields.  
-4. For `rejection_cases`, assert the implementation returns the listed `expected_error` code (see `spec/CESS-v0.1.md` Section 14).
+4. For `rejection_cases`, assert the implementation returns the listed `expected_error` code (see `spec/CESS-v0.2.md` Section 14).
 
 ## Conformance levels
 

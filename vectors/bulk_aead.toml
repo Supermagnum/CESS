@@ -1,6 +1,6 @@
-# CESS v0.1 — ChaCha20-Poly1305 (RFC 8439), Serpent-256-CTR + Poly1305, cascade
+# CESS v0.2 — ChaCha20-Poly1305 (RFC 8439), Serpent-256-CTR + Poly1305, cascade
 # Serpent-CTR from scripts/serpent_helper; Poly1305 MAC per RFC 8439 padding on aad||ciphertext
-schema = "cess-bulk-aead-v0.1"
+schema = "cess-bulk-aead-v0.2"
 
 [[vectors]]
 description = "ChaCha20-Poly1305 standard message with AAD"

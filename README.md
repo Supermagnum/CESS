@@ -1,6 +1,6 @@
 # CESS — Cryptologically Enchanted Shamir's Secret
 
-**Version:** 0.1-draft  
+**Version:** 0.2-draft  
 **Status:** Specification only (normative text and test vectors)
 
 CESS is an open cryptographic standard for **threshold secret sharing** combined with **cipher-agnostic authenticated encryption**, **password-based share wrapping**, and optional **post-quantum hybrid key exchange**. It is designed for deployments that require long-lived confidentiality, air-gapped enrollment, hardware token binding, and procurement paths independent of NSA/NIST-only algorithm baselines.
@@ -17,7 +17,7 @@ CESS defines the **standard**; [**SplitDisk**](https://github.com/Supermagnum/sp
 
 ## Cipher-agnostic design
 
-CESS fixes **Shamir's Secret Sharing over GF(2^8)** and several audited **non-optional** integrity and password primitives. All **bulk encryption, KEM, KDF, and MAC** layers are **selectable** from an audited registry, subject to the **two independent auditor** rule and the **hard exclusion list** (see `spec/CESS-v0.1.md` and `ALGORITHM-REGISTRY.md`).
+CESS fixes **Shamir's Secret Sharing over GF(2^8)** and several audited **non-optional** integrity and password primitives. All **bulk encryption, KEM, KDF, and MAC** layers are **selectable** from an audited registry, subject to the **two independent auditor** rule and the **hard exclusion list** (see `spec/CESS-v0.2.md` and `ALGORITHM-REGISTRY.md`).
 
 ## Audit requirement and exclusions (summary)
 
@@ -25,13 +25,13 @@ CESS fixes **Shamir's Secret Sharing over GF(2^8)** and several audited **non-op
 - **NSA design input**, **NIST/FIPS-only** review, and several algorithms (AES, SHA-2, SHA-3, NIST curves, ML-Kyber, Dual_EC_DRBG, RC4, DES, 3DES, HMAC-SHA-*) are **excluded** with explicit rationale in the specification.
 - **X25519 / Ed25519** are optionally permitted with documented rationale (Bernstein designs; extensive independent audits).
 
-Details: `spec/CESS-v0.1.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTRY.md`.
+Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTRY.md`.
 
 ## Repository layout
 
 | Path | Role |
 |------|------|
-| `spec/CESS-v0.1.md` | Main normative standard (RFC 2119 keywords) |
+| `spec/CESS-v0.2.md` | Main normative standard (RFC 2119 keywords) |
 | `spec/CRYPTO.md` | Cryptographic rationale and proof sketches |
 | `spec/GOVERNMENT.md` | Government and high-security deployment notes |
 | `ALGORITHM-REGISTRY.md` | Living registry of approved and excluded algorithms |
@@ -66,7 +66,7 @@ Contributors agree to the **patent non-assertion covenant** in `PATENTS.md`. The
 
 ## Contributing
 
-See `CONTRIBUTING.md`. **Pull requests** are treated as agreement to `PATENTS.md`. Specification changes require **two reviewers in different countries**. New algorithms use `ALGORITHM-REGISTRY.md` (open a PR against the registry, then against `spec/CESS-v0.1.md` cross-references if needed).
+See `CONTRIBUTING.md`. **Pull requests** are treated as agreement to `PATENTS.md`. Specification changes require **two reviewers in different countries**. New algorithms use `ALGORITHM-REGISTRY.md` (open a PR against the registry, then against `spec/CESS-v0.2.md` cross-references if needed).
 
 ### Adding a cipher to the registry
 
@@ -77,7 +77,7 @@ See `CONTRIBUTING.md`. **Pull requests** are treated as agreement to `PATENTS.md
 
 ## Document index
 
-- [Main standard](spec/CESS-v0.1.md)  
+- [Main standard](spec/CESS-v0.2.md)  
 - [CRYPTO (rationale)](spec/CRYPTO.md)  
 - [GOVERNMENT (deployment)](spec/GOVERNMENT.md)  
 - [Algorithm registry](ALGORITHM-REGISTRY.md)  

@@ -3,7 +3,7 @@
 # BSI TR-03111 references RFC 5639 curves and defines ECC profiles; official TR-03111
 # test vectors are distributed as PDF (not vendored here). Encoding conventions for
 # field elements match SEC1 as used in RFC 7027 Appendix A.
-schema = "cess-rfc5639-brainpool-v0.1"
+schema = "cess-rfc5639-brainpool-v0.2"
 
 source = "RFC 5639 Sections 3.4, 3.6, 3.7"
 bsi_tr03111_note = "BSI TR-03111 (Elliptic Curve Cryptography) — see BSI publications for ECDH test vectors and profile rules; align with SEC1/RFC 5639 parameter sets"

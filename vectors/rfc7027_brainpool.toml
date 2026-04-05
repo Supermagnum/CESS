@@ -2,7 +2,7 @@
 # Full corpus: ../testdata/rfc7027/rfc7027_brainpool_tls_ecdh.json (P-256, P-384, P-512)
 # x_Z is the TLS pre-master secret (shared ECDH x-coordinate); SEC1 field element encoding.
 # Distinct from RFC 6932 Appendix A for the same curve identifiers.
-schema = "cess-rfc7027-brainpool-v0.1"
+schema = "cess-rfc7027-brainpool-v0.2"
 
 source = "RFC 7027 Appendix A"
 encoding = "SEC1 FieldElement-to-OctetString (per RFC 7027)"

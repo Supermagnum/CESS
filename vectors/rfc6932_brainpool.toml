@@ -2,7 +2,7 @@
 # Full corpus: ../testdata/rfc6932/rfc6932_brainpool_ecdh.json (4 curves)
 # Shared secret = x-coordinate of agreed point (big-endian, field width).
 # TLS-specific vectors for the same curve names are in RFC 7027 Appendix A (testdata/rfc7027/).
-schema = "cess-rfc6932-brainpool-v0.1"
+schema = "cess-rfc6932-brainpool-v0.2"
 
 source = "RFC 6932 Appendix A (Test Data)"
 rfc_sections = ["A.1 brainpoolP224r1", "A.2 brainpoolP256r1", "A.3 brainpoolP384r1", "A.4 brainpoolP512r1"]

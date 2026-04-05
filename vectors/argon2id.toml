@@ -1,6 +1,6 @@
-# CESS v0.1 — Argon2id per RFC 9106 at CESS profile
+# CESS v0.2 — Argon2id per RFC 9106 at CESS profile
 # memory_kib = 65536, iterations = 3, parallelism = 4, salt = 16 bytes, output = 32 bytes
-schema = "cess-argon2id-v0.1"
+schema = "cess-argon2id-v0.2"
 
 [[vectors]]
 description = "standard PIN at CESS parameters"

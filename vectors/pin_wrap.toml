@@ -1,5 +1,5 @@
-# CESS v0.1 — PIN wrap: Argon2id -> HKDF-BLAKE3 -> AEAD
-schema = "cess-pin-wrap-v0.1"
+# CESS v0.2 — PIN wrap: Argon2id -> HKDF-BLAKE3 -> AEAD
+schema = "cess-pin-wrap-v0.2"
 
 [[vectors]]
 description = "Argon2id to HKDF-BLAKE3 to ChaCha20-Poly1305 wrap of 3-byte share"

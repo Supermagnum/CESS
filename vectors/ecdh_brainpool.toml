@@ -1,5 +1,5 @@
-# CESS v0.1 — Brainpool ECDH (RFC 5639, BSI TR-03111 practices)
-schema = "cess-ecdh-brainpool-v0.1"
+# CESS v0.2 — Brainpool ECDH (RFC 5639, BSI TR-03111 practices)
+schema = "cess-ecdh-brainpool-v0.2"
 
 [[vectors]]
 description = "BrainpoolP384r1 static ECDH between fixed test scalars"

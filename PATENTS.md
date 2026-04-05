@@ -1,7 +1,7 @@
 # Patent statement and contributor covenant (CESS)
 
 **Standard:** CESS — Cryptologically Enchanted Shamir's Secret  
-**Version:** 0.1-draft  
+**Version:** 0.2-draft  
 
 This file documents patent-related expectations for the CESS repository and for implementations of the standard.
 
