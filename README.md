@@ -5,7 +5,7 @@
 **Version:** 0.2-draft  
 **Status:** Specification only (normative text and test vectors)
 
-This project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN).
+This project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN), a defensive patent pool protecting Linux-related open source software. The combination of open preprint publication (establishing prior art), OIN membership, and GPL-3.0 licensing is intended to ensure this technology remains freely available and cannot be proprietised or restricted by any state or commercial actor.
 
 CESS is an open cryptographic standard for **threshold secret sharing** combined with **cipher-agnostic authenticated encryption**, **password-based share wrapping**, and optional **post-quantum hybrid key exchange**. It is designed for deployments that require long-lived confidentiality, air-gapped enrollment, hardware token binding, and procurement paths independent of NSA/NIST-only algorithm baselines.
 
