@@ -45,7 +45,7 @@ Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTR
 | `runner/` | Conformance test runner (Rust, GPL-3.0) |
 | `LICENSE-SPEC` | CC0 1.0 — specification and vectors |
 | `LICENSE-CODE` | GPL-3.0 — code |
-| `PATENTS.md` | OIN intent and contributor patent non-assertion covenant |
+| `PATENTS.md` | OIN context and contributor patent non-assertion covenant |
 | `CONTRIBUTING.md` | Contribution rules and review policy |
 | `CONFORMANCE.md` | How to claim and document conformance |
 | `IMPLEMENTATIONS.md` | Optional listing of conforming products |
@@ -59,7 +59,7 @@ Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTR
 
 ## Patents and OIN
 
-Contributors agree to the **patent non-assertion covenant** in `PATENTS.md`. The project also records **intent to participate in the Open Invention Network (OIN)** ecosystem for defensive patent pooling. OIN membership does **not** by itself protect non-members; the **covenant** is intended to close that gap for conforming implementations.
+Contributors agree to the **patent non-assertion covenant** in `PATENTS.md`. The project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN), a defensive patent pool for Linux-related open source software. Cross-licensing through OIN does **not** by itself cover parties outside that ecosystem; the **covenant** is intended to close that gap for conforming implementations.
 
 ## Audiences
 
