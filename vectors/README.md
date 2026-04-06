@@ -23,6 +23,7 @@ Each file begins with a `schema` key identifying the format revision, e.g. `cess
 | `hkdf_blake3.toml` | yes | yes | yes |
 | `ecdh_brainpool.toml` | yes | yes | yes |
 | `bulk_aead.toml` | ChaCha rows | + Serpent + cascade | + PQ when added |
+| `twofish.toml` | yes | yes | + PQ when added |
 | `pin_wrap.toml` | ChaCha row | + Serpent row | optional |
 | `reed_solomon.toml` | no | yes | yes |
 | `rejection.toml` | yes | yes | yes |
@@ -76,6 +77,7 @@ cd runner && cargo run --release --bin wycheproof_chacha -- ../testdata/wychepro
 - Use **deterministic** inputs; document PRNG seeds if used.  
 - Extend `scripts/generate_vectors.py` when possible.  
 - Serpent-dependent vectors require `scripts/serpent_helper` built with `cargo build --release --target-dir ./target`.
+- Twofish KATs in `twofish.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::twofish_bulk::verify_twofish_toml`).
 
 ## Regenerating vectors
 

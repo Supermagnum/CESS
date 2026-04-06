@@ -47,6 +47,7 @@ fn main() {
         "hkdf_blake3.toml",
         "ecdh_brainpool.toml",
         "bulk_aead.toml",
+        "twofish.toml",
         "pin_wrap.toml",
         "reed_solomon.toml",
         "rejection.toml",

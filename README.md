@@ -35,7 +35,7 @@ Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTR
 | `spec/CRYPTO.md` | Cryptographic rationale and proof sketches |
 | `spec/GOVERNMENT.md` | Government and high-security deployment notes |
 | `ALGORITHM-REGISTRY.md` | Living registry of approved and excluded algorithms |
-| `vectors/` | Machine-readable test vectors (TOML); CC0 |
+| `vectors/` | Machine-readable test vectors (TOML: ChaCha/Serpent/Twofish bulk, integration, etc.); CC0 |
 | `testdata/wycheproof/` | Vendored Wycheproof ChaCha20-Poly1305 JSON (Apache-2.0 upstream); see `testdata/wycheproof/README.md` |
 | `scripts/` | Vector generation helpers (GPL-3.0 where code) |
 | `runner/` | Conformance test runner (Rust, GPL-3.0) |

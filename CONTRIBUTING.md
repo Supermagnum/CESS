@@ -23,7 +23,8 @@ By opening a pull request that is merged into this repository, you agree to the 
 
 - Vectors MUST use the TOML schemas under `vectors/` and include **edge cases** (empty inputs, boundary lengths, rejection cases).  
 - Hex MUST be **lowercase** with **deterministic** values (no `TODO` placeholders).  
-- Prefer extending `scripts/generate_vectors.py` (or documented generation) so vectors remain reproducible.
+- Prefer extending `scripts/generate_vectors.py` (or documented generation) so vectors remain reproducible.  
+- After changing **`vectors/twofish.toml`**, run **`cargo test`** in **`runner/`** so Twofish KAT checks (`verify_twofish_toml`) still pass.
 
 ## Test runner dependencies
 

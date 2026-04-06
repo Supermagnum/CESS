@@ -1,6 +1,6 @@
 # CESS conformance test runner
 
-Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/`. Cryptographic **equality checks** against expected digests are intended to be wired to a **library under test** via `--impl` in future revisions.
+Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/` (including `twofish.toml`). The library crate **`cess_runner`** implements **`twofish_bulk`**: Twofish-256-CTR + Poly1305 (RFC 8439 MAC layout) and ChaCha/Serpent/Twofish cascades. **`cargo test`** in this directory runs **`verify_twofish_toml`** against `../vectors/twofish.toml` (integration tests in `tests/twofish_suite_ids.rs`). Other primitives still use cryptographic **equality checks** against expected digests wired incrementally; full **library under test** binding remains available via `--impl` where applicable.
 
 ## Build
 
@@ -54,7 +54,7 @@ env -u CARGO_TARGET_DIR cargo run --release --bin rfc6932_brainpool -- ../testda
 - Final summary: `summary PASS=n FAIL=m`.  
 - Exit code **0** only if every listed file parses as TOML.
 
-When full verification is implemented, each subtest will emit `PASS`, `FAIL`, or `SKIP` per vector entry.
+The **`cess-runner`** binary currently checks **TOML parse** only for each file; Twofish KAT **cryptographic** verification is in **`cargo test`** (see above).
 
 ## Conformance
 

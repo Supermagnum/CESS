@@ -169,14 +169,19 @@ dependencies = [
  "chacha20poly1305",
  "cipher 0.5.1",
  "elliptic-curve",
+ "generic-array",
  "hex",
  "hkdf 0.12.4",
  "hmac 0.12.1",
+ "poly1305",
  "reed-solomon-erasure",
  "serde",
  "serde_json",
  "serpent",
  "toml",
+ "twofish",
+ "typenum",
+ "universal-hash",
 ]
 
 [[package]]
@@ -999,6 +1004,15 @@ name = "toml_write"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5d99f8c9a7727884afe522e9bd5edbfc91a3312b36a77b5fb8926e4c31a41801"
+
+[[package]]
+name = "twofish"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a78e83a30223c757c3947cd144a31014ff04298d8719ae10d03c31c0448c8013"
+dependencies = [
+ "cipher 0.4.4",
+]
 
 [[package]]
 name = "typenum"
