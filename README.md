@@ -1,7 +1,11 @@
+![Open Invention Network member](OIN/oin-member-horiz.jpg)
+
 # CESS — Cryptologically Enchanted Shamir's Secret
 
 **Version:** 0.2-draft  
 **Status:** Specification only (normative text and test vectors)
+
+This project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN).
 
 CESS is an open cryptographic standard for **threshold secret sharing** combined with **cipher-agnostic authenticated encryption**, **password-based share wrapping**, and optional **post-quantum hybrid key exchange**. It is designed for deployments that require long-lived confidentiality, air-gapped enrollment, hardware token binding, and procurement paths independent of NSA/NIST-only algorithm baselines.
 
