@@ -1,6 +1,6 @@
 # CESS conformance test runner
 
-Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/` (including `twofish.toml`). The library crate **`cess_runner`** implements **`twofish_bulk`**: Twofish-256-CTR + Poly1305 (RFC 8439 MAC layout) and ChaCha/Serpent/Twofish cascades. **`cargo test`** in this directory runs **`verify_twofish_toml`** against `../vectors/twofish.toml` (integration tests in `tests/twofish_suite_ids.rs`). Other primitives still use cryptographic **equality checks** against expected digests wired incrementally; full **library under test** binding remains available via `--impl` where applicable.
+Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/`, then runs **`cess_runner::verify_all_crypto_vectors`** on `twofish.toml`, `hkdf_blake3.toml`, `blake3_integrity.toml`, `ed25519_signing.toml`, `ecdh_p512_inner.toml`, and `classical_suite_id_matrix.toml`. It then runs **`scripts/verify_p512_ecdh_kat.py`** (Python `cryptography`) to cross-check the BrainpoolP512r1 ECDH row in `ecdh_p512_inner.toml`. The library crate **`cess_runner`** implements **`twofish_bulk`**, **HKDF-BLAKE3** (`hkdf_blake3`), **keyed BLAKE3 integrity** (`blake3_integrity`), and **Ed25519** vector checks (`ed25519_signing`). **`cargo test`** runs Twofish integration tests (`tests/twofish_suite_ids.rs`), full-file HKDF checks, and **`tests/kat_vectors.rs`**. Full **library under test** binding remains available via `--impl` where applicable.
 
 ## Build
 

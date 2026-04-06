@@ -1,10 +1,14 @@
 # CESS v0.2 — Twofish-256-CTR + Poly1305 (RFC 8439 MAC layout), cascades with ChaCha20-Poly1305 and Serpent-256-CTR
 # CTR increment matches scripts/serpent_helper and bulk_aead.toml Serpent rows; Poly1305 matches ChaCha20-Poly1305 AEAD padding.
+# Single-layer rows include key_hex and nonce_hex (same octets as twofish_key_hex and ctr_iv_hex) for schema alignment with bulk_aead.toml.
 schema = "cess-twofish-v0.2"
 
 [[vectors]]
 description = "Twofish-256-CTR + Poly1305 single layer (same plaintext and AAD profile as bulk_aead Serpent row)"
 suite_id = "0x0004"
+notes = "Twofish: twofish crate (Schneier et al.); Poly1305 MAC: RFC 8439 data layout (padded AAD and ciphertext); cess_runner twofish_bulk."
+key_hex = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+nonce_hex = "8de9731f4c821a10c5380e2f111fe632"
 twofish_key_hex = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 ctr_iv_hex = "8de9731f4c821a10c5380e2f111fe632"
 aad_hex = "636573732d6161642d7631"
@@ -113,6 +117,9 @@ outer_tag_hex = "e354d9eed605517f2d55014466769f4a"
 [[vectors]]
 description = "Ed25519 signed profile with optional keyed BLAKE3 integrity (HKDF info cess-blake3-integrity-0207); Twofish bulk matches 0x0004"
 suite_id = "0x0207"
+notes = "BLAKE3 integrity key from HKDF-BLAKE3 IKM 3df646... and info cess-blake3-integrity-0207; tag over Twofish ciphertext||Poly1305 tag; same crypto as blake3_integrity.toml Twofish row and runner twofish_bulk."
+key_hex = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+nonce_hex = "8de9731f4c821a10c5380e2f111fe632"
 twofish_key_hex = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 ctr_iv_hex = "8de9731f4c821a10c5380e2f111fe632"
 aad_hex = "636573732d6161642d7631"
@@ -120,4 +127,5 @@ plaintext_hex = "434553532062756c6b204145414420706c61696e7465787420766563746f722
 ciphertext_hex = "92220bafb0050d74503f3f5d6fe3ca31f1c3801d0b4357cc926309ff01c84443"
 poly1305_key_hex = "b7346dd7ac30b9132da4f11d8cd19f0fd464f9d5ef51d929bc26244527a3af28"
 tag_hex = "f526ef1866fd4cab9a7b509917405c3c"
-blake3_integrity_key_hex = "101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f"
+blake3_integrity_key_hex = "1ad3b986e37393a733c64ec806abd28ba33391b3fad1719b3c13cf081d469565"
+expected_blake3_integrity_tag_hex = "c7fe07a058c482fcd53144965dba97bfaf3a77fff05999450629b405044ca2bf"

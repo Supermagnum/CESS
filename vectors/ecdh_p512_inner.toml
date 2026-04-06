@@ -1,0 +1,20 @@
+# CESS v0.2 — BrainpoolP512r1 inner KEM (shared secret + HKDF-BLAKE3 inner key)
+# ECDH shared secret matches vectors/ecdh_brainpool.toml P512 row (cryptography.ec).
+schema = "cess-ecdh-p512-inner-v0.1"
+
+[[vectors]]
+case_kind = "ecdh_shared_secret"
+suite_id = "0x0013"
+private_key_hex = "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001"
+peer_public_key_hex = "041ee3f427b2fc733265f7d615324868018be15ecde5d00929f56214ccb02648295b0c7108d78c227038cdad165d25fcbc42196434c8e7e4b5743cfe4539f1eb086aa1fee39a617cc54888bbc9bd476ecf8708d71d15c3180e45c918f6569b7388924093577fd2d3e8b1d151b14616a03b73ff1f2c2b9d3c32f709b562c91d38da"
+expected_shared_secret_hex = "0cf4de5a030128978d3c47d470d1ba1b9bdc5a58962fc33cbd73b42ef33abb3a6ea4e01038e223cf2af6f729862550081ce1322bcba6bc7e5c0d4f2ff0f33d98"
+notes = "Verified by scripts/verify_p512_ecdh_kat.py using Python cryptography BrainpoolP512r1 ECDH; x-coordinate output matches ecdh_brainpool.toml."
+
+[[vectors]]
+case_kind = "hkdf_inner_key"
+suite_id = "0x0013"
+hkdf_input_key_material_hex = "0cf4de5a030128978d3c47d470d1ba1b9bdc5a58962fc33cbd73b42ef33abb3a6ea4e01038e223cf2af6f729862550081ce1322bcba6bc7e5c0d4f2ff0f33d98"
+hkdf_salt_hex = ""
+hkdf_info_utf8 = "cess-inner-0013"
+expected_inner_key_hex = "66cef42e828b14256fbc523156b7b2ff1c8f4ea7319f4fc63800557fa6ea04bd"
+notes = "HKDF-BLAKE3 info is UTF-8 cess-inner-0013 per spec Section 8.3 (suite-specific inner key). Verified in runner/src/hkdf_blake3.rs and runner/src/ecdh_p512_inner.rs."

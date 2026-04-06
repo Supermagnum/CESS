@@ -23,6 +23,10 @@ Each file begins with a `schema` key identifying the format revision, e.g. `cess
 | `hkdf_blake3.toml` | yes | yes | yes |
 | `ecdh_brainpool.toml` | yes | yes | yes |
 | `bulk_aead.toml` | ChaCha rows | + Serpent + cascade | + PQ when added |
+| `blake3_integrity.toml` | keyed BLAKE3 tags | same | same |
+| `classical_suite_id_matrix.toml` | suite_id manifest | same | same |
+| `ed25519_signing.toml` | Ed25519 sign/verify KATs | same | same |
+| `ecdh_p512_inner.toml` | P512 ECDH + HKDF inner key | same | same |
 | `twofish.toml` | yes | yes | + PQ when added |
 | `pin_wrap.toml` | ChaCha row | + Serpent row | optional |
 | `reed_solomon.toml` | no | yes | yes |

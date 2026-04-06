@@ -1,0 +1,41 @@
+# CESS v0.2 — Ed25519 inner profile signing (Section 4.5)
+schema = "cess-ed25519-signing-v0.1"
+
+[[vectors]]
+case_kind = "rfc8032_empty_message"
+description = "RFC 8032 Section 7.1 TEST 1 empty message (cross-check baseline)"
+ed25519_private_key_hex = "9d61b19deffd5a60ba844af492ec2cc44449c5697b3260917032f8d224177b9c"
+ed25519_public_key_hex = "d03f454414e073f17fc982ff1435b3dc7086ae89da1d4c48f69c6a3fde752a7c"
+message_hex = ""
+expected_signature_hex = "55027091ae32be5355de1407902897a2780e5dcaf78c8b3e76cce0fc7a095630687e8abd1741484820167093d5e56e95166dd6c6971a5e398978c936d24b080a"
+notes = "Signature from ed25519-dalek 2.x; public key is the verifying key derived from the RFC 8032 TEST 1 32-byte secret (dalek pubkey encoding; compare independently to your Ed25519 backend)."
+
+[[vectors]]
+case_kind = "suite_id_inner_blob"
+description = "Sign suite_id (BE) || inner_blob with deterministic test key"
+ed25519_private_key_hex = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+ed25519_public_key_hex = "03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8"
+message_hex = "0200696e6e65722d626c6f622d7061796c6f6164"
+expected_signature_hex = "7fda68f0e2534c5b7e97dedeb9708be5722872f3344fc0e6d2db5cb2fcb1aa6e89727413465b9e89f69f64902b9acf5b14a236bc67f421a6cd44923975676f0d"
+notes = "Cross-generated with Python cryptography Ed25519; message = suite_id_bytes || inner_blob."
+
+[[vectors]]
+case_kind = "mode_a_plaintext_layout"
+description = "Mode A outer plaintext: suite_id || ed25519_signature || inner_blob"
+ed25519_private_key_hex = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+ed25519_public_key_hex = "03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8"
+suite_id_bytes_hex = "0200"
+inner_blob_hex = "696e6e65722d626c6f622d7061796c6f6164"
+mode_a_plaintext_hex = "02007fda68f0e2534c5b7e97dedeb9708be5722872f3344fc0e6d2db5cb2fcb1aa6e89727413465b9e89f69f64902b9acf5b14a236bc67f421a6cd44923975676f0d696e6e65722d626c6f622d7061796c6f6164"
+expected_signature_hex = "7fda68f0e2534c5b7e97dedeb9708be5722872f3344fc0e6d2db5cb2fcb1aa6e89727413465b9e89f69f64902b9acf5b14a236bc67f421a6cd44923975676f0d"
+notes = "mode_a_plaintext_hex is 2-byte suite_id || 64-byte signature || inner_blob; signature is over suite_id || inner_blob only (Section 4.5)."
+
+[[vectors]]
+case_kind = "verify_fails_tampered_message"
+description = "Ed25519 verification fails when inner portion of signed message is altered"
+ed25519_private_key_hex = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+ed25519_public_key_hex = "03a107bff3ce10be1d70dd18e74bc09967e4d6309ba50d5f1ddc8664125531b8"
+original_message_hex = "0200696e6e65722d626c6f622d7061796c6f6164"
+tampered_message_hex = "0201696e6e65722d626c6f622d7061796c6f6164"
+expected_signature_hex = "7fda68f0e2534c5b7e97dedeb9708be5722872f3344fc0e6d2db5cb2fcb1aa6e89727413465b9e89f69f64902b9acf5b14a236bc67f421a6cd44923975676f0d"
+notes = "Signature is valid for original_message_hex; tampered_message_hex flips high byte of suite_id from 0x0200 to 0x0201."

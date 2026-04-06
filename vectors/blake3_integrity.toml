@@ -1,0 +1,36 @@
+# CESS v0.2 — Keyed BLAKE3 integrity between AEAD layers (Section 6.3)
+# HKDF-BLAKE3 info: cess-blake3-integrity- + 4 hex digits of suite_id (lowercase)
+schema = "cess-blake3-integrity-v0.1"
+
+[[vectors]]
+description = "Keyed BLAKE3 over ChaCha20-Poly1305 AEAD output (ciphertext||tag); suite 0x0008"
+suite_id = "0x0008"
+hkdf_input_key_material_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+hkdf_salt_hex = ""
+hkdf_info_utf8 = "cess-blake3-integrity-0008"
+blake3_integrity_key_hex = "9ccf758c05e3849896df9680c89dc125825623c0d646b1e24208fad1375eee7f"
+inner_ciphertext_hex = "99b9ef951bc1c9159d42bf037b4872f0bf1bfc52f2e8cfcfa3714b7ddd3d725dab415e055a85439c51838fed7f2f0ca7"
+expected_blake3_tag_hex = "e1c4c41386f99a08076fee952f87306f39a3d4aaa84e212e5d3fb541633b80ef"
+notes = "IKM matches hkdf_blake3.toml classical row; inner blob is ChaCha20-Poly1305 seal output (RFC 8439). Keyed BLAKE3: blake3 Rust crate keyed mode. HKDF-BLAKE3 matches scripts/generate_vectors.py and runner/src/hkdf_blake3.rs."
+
+[[vectors]]
+description = "Keyed BLAKE3 over Serpent-256-CTR + Poly1305 AEAD output; suite 0x000a"
+suite_id = "0x000a"
+hkdf_input_key_material_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+hkdf_salt_hex = ""
+hkdf_info_utf8 = "cess-blake3-integrity-000a"
+blake3_integrity_key_hex = "ca8a3786b4b20bfe8f122c4837a3001c6531cbdff09a9847ac432bc40a17b240"
+inner_ciphertext_hex = "3ae158e636756690d82a74d6a77bd5ca4ea714e78edc2a6794dd5005a7da2bffce883d20497e41b431bfdf943f613ba3"
+expected_blake3_tag_hex = "36f69f30335365de7c78363e2aa0007914bf5928b5bb3e9304200fef4796f45a"
+notes = "Inner blob is Serpent ciphertext concatenated with Poly1305 tag (bulk_aead.toml profile). Serpent: serpent crate; Poly1305: RFC 8439 padding; BLAKE3 keyed: blake3 crate."
+
+[[vectors]]
+description = "Keyed BLAKE3 over Twofish-256-CTR + Poly1305 AEAD output; suite 0x000e"
+suite_id = "0x000e"
+hkdf_input_key_material_hex = "3df646a590007b20e599678926543bad804f03c4cd15d8122813d97b08b657d9"
+hkdf_salt_hex = ""
+hkdf_info_utf8 = "cess-blake3-integrity-000e"
+blake3_integrity_key_hex = "0583d7988eef59531b7b062238c063a84aac83fdb35a1ed20f43625da2577f7e"
+inner_ciphertext_hex = "92220bafb0050d74503f3f5d6fe3ca31f1c3801d0b4357cc926309ff01c84443f526ef1866fd4cab9a7b509917405c3c"
+expected_blake3_tag_hex = "6d9121b676b04eafa4f39484805c29a2f6b9fa6ec32a8354ebe5cbdef1decda2"
+notes = "Twofish: twofish crate (Schneier et al.); Poly1305: RFC 8439; same intermediate values as vectors/twofish.toml single-layer row material."

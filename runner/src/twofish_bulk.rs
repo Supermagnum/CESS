@@ -144,7 +144,18 @@ fn verify_single_row(row: &toml::Value, suite_id: &str) -> Result<(), String> {
         return Err("tag_hex: expected 16 bytes".into());
     }
     if suite_id == "0x0207" {
-        let _ik = hex32(row, "blake3_integrity_key_hex")?;
+        let ik = hex32(row, "blake3_integrity_key_hex")?;
+        let exp_blake = hex_field(row, "expected_blake3_integrity_tag_hex")?;
+        if exp_blake.len() != 32 {
+            return Err("expected_blake3_integrity_tag_hex: expected 32 bytes".into());
+        }
+        let mut blob = exp_ct.clone();
+        blob.extend_from_slice(&exp_tag);
+        let mut h = blake3::Hasher::new_keyed(&ik);
+        h.update(&blob);
+        if h.finalize().as_bytes().as_slice() != exp_blake.as_slice() {
+            return Err(format!("{suite_id}: keyed BLAKE3 integrity tag mismatch"));
+        }
     }
     let mut ct = pt.clone();
     twofish256_ctr_xor(&key, &iv, &mut ct);

@@ -31,5 +31,6 @@ bp256 = { version = "0.14.0-rc.8", features = ["arithmetic"] }
 bp384 = { version = "0.14.0-rc.8", features = ["arithmetic"] }
 # Enables SecretKey::diffie_hellman for runner/src/bin/rfc6932_brainpool.rs (bp256/bp384 use the same crate).
 elliptic-curve = { version = "0.14.0-rc.29", default-features = false, features = ["alloc", "ecdh", "sec1"] }
+ed25519-dalek = { version = "2.2.0", default-features = false }
 # vsss-rs omitted (pulls SHA-256 family via dependency graph). SSS over GF(2^8) is verified
 # against vectors using the same field arithmetic as `scripts/generate_vectors.py`.

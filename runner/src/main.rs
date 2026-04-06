@@ -1,10 +1,10 @@
-//! CESS conformance runner: loads vector files and reports parse status.
-//! Full primitive verification is implemented incrementally against `vectors/*.toml`.
+//! CESS conformance runner: loads vector files, parses TOML, and verifies cryptographic KATs.
 #![forbid(unsafe_code)]
 
 use std::env;
 use std::fs;
 use std::path::PathBuf;
+use std::process::Command;
 
 fn main() {
     let mut args = env::args().skip(1);
@@ -20,7 +20,7 @@ fn main() {
             "-h" | "--help" => {
                 eprintln!(
                     "Usage: cess-runner [--level core|full|pq] [--vectors DIR] [--impl PATH]\n\
-                     Exits 0 if all TOML vector files parse; prints summary."
+                     Exits 0 if all TOML vector files parse and cryptographic KATs verify."
                 );
                 std::process::exit(0);
             }
@@ -47,7 +47,11 @@ fn main() {
         "hkdf_blake3.toml",
         "ecdh_brainpool.toml",
         "bulk_aead.toml",
+        "blake3_integrity.toml",
+        "classical_suite_id_matrix.toml",
         "twofish.toml",
+        "ed25519_signing.toml",
+        "ecdh_p512_inner.toml",
         "pin_wrap.toml",
         "reed_solomon.toml",
         "rejection.toml",
@@ -77,7 +81,7 @@ fn main() {
     }
 
     println!(
-        "cess-runner: level={} vectors_dir={} summary PASS={} FAIL={}",
+        "cess-runner: level={} vectors_dir={} parse PASS={} FAIL={}",
         level,
         dir.display(),
         ok,
@@ -87,4 +91,46 @@ fn main() {
     if fail > 0 {
         std::process::exit(1);
     }
+
+    let twofish = fs::read_to_string(dir.join("twofish.toml")).expect("twofish.toml");
+    let hkdf = fs::read_to_string(dir.join("hkdf_blake3.toml")).expect("hkdf_blake3.toml");
+    let blake3_int = fs::read_to_string(dir.join("blake3_integrity.toml")).expect("blake3_integrity.toml");
+    let ed25519 = fs::read_to_string(dir.join("ed25519_signing.toml")).expect("ed25519_signing.toml");
+    let ecdh_p512 = fs::read_to_string(dir.join("ecdh_p512_inner.toml")).expect("ecdh_p512_inner.toml");
+    let matrix = fs::read_to_string(dir.join("classical_suite_id_matrix.toml")).expect("matrix");
+
+    match cess_runner::verify_all_crypto_vectors(
+        &twofish,
+        &hkdf,
+        &blake3_int,
+        &ed25519,
+        &ecdh_p512,
+        &matrix,
+    ) {
+        Ok(()) => println!("PASS crypto KAT verification"),
+        Err(e) => {
+            eprintln!("FAIL crypto KAT verification: {e}");
+            std::process::exit(1);
+        }
+    }
+
+    let script = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../scripts/verify_p512_ecdh_kat.py");
+    let status = Command::new("python3")
+        .arg(&script)
+        .status()
+        .unwrap_or_else(|e| {
+            eprintln!("FAIL spawn python3 for P512 ECDH cross-check: {e}");
+            std::process::exit(1);
+        });
+    if !status.success() {
+        eprintln!("FAIL scripts/verify_p512_ecdh_kat.py (BrainpoolP512r1 ECDH)");
+        std::process::exit(1);
+    }
+    println!("PASS P512 ECDH Python cross-check");
+
+    println!(
+        "cess-runner: level={} vectors_dir={} summary OK",
+        level,
+        dir.display()
+    );
 }

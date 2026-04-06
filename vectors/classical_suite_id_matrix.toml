@@ -1,0 +1,338 @@
+# Classical suite_id manifest (56 classical inner profiles; 0x0000 reserved in spec).
+schema = "cess-classical-suite-matrix-v0.2"
+
+[[suite_ids]]
+suite_id = "0x0001"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "ChaCha20-Poly1305 first row"
+
+[[suite_ids]]
+suite_id = "0x0002"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "Serpent + Poly1305 row"
+
+[[suite_ids]]
+suite_id = "0x0003"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "ChaCha-Serpent cascade row"
+
+[[suite_ids]]
+suite_id = "0x0004"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0004"
+
+[[suite_ids]]
+suite_id = "0x0005"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0005"
+
+[[suite_ids]]
+suite_id = "0x0006"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0006"
+
+[[suite_ids]]
+suite_id = "0x0007"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0007"
+
+[[suite_ids]]
+suite_id = "0x0008"
+status = "provisional"
+vector_file = "blake3_integrity.toml"
+vector_note = "Keyed BLAKE3 integrity KAT 0x0008"
+
+[[suite_ids]]
+suite_id = "0x0009"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0009"
+
+[[suite_ids]]
+suite_id = "0x000a"
+status = "provisional"
+vector_file = "blake3_integrity.toml"
+vector_note = "Keyed BLAKE3 integrity KAT 0x000a"
+
+[[suite_ids]]
+suite_id = "0x000b"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x000b"
+
+[[suite_ids]]
+suite_id = "0x000c"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x000c"
+
+[[suite_ids]]
+suite_id = "0x000d"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x000d"
+
+[[suite_ids]]
+suite_id = "0x000e"
+status = "provisional"
+vector_file = "blake3_integrity.toml"
+vector_note = "Keyed BLAKE3 integrity KAT 0x000e"
+
+[[suite_ids]]
+suite_id = "0x000f"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x000f"
+
+[[suite_ids]]
+suite_id = "0x0010"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "P512 profile KAT material (integration/bulk)"
+
+[[suite_ids]]
+suite_id = "0x0011"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "P512 Serpent profile"
+
+[[suite_ids]]
+suite_id = "0x0012"
+status = "approved"
+vector_file = "bulk_aead.toml"
+vector_note = "P512 cascade profile"
+
+[[suite_ids]]
+suite_id = "0x0013"
+status = "provisional"
+vector_file = "ecdh_p512_inner.toml"
+vector_note = "P512 ECDH + HKDF inner key sample"
+
+[[suite_ids]]
+suite_id = "0x0014"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0014"
+
+[[suite_ids]]
+suite_id = "0x0015"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0015"
+
+[[suite_ids]]
+suite_id = "0x0016"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0016"
+
+[[suite_ids]]
+suite_id = "0x0017"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0017"
+
+[[suite_ids]]
+suite_id = "0x0018"
+status = "provisional"
+vector_file = "ecdh_p512_inner.toml"
+vector_note = "HKDF inner key from P512 shared secret"
+
+[[suite_ids]]
+suite_id = "0x0019"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0019"
+
+[[suite_ids]]
+suite_id = "0x001a"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001a"
+
+[[suite_ids]]
+suite_id = "0x001b"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001b"
+
+[[suite_ids]]
+suite_id = "0x001c"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001c"
+
+[[suite_ids]]
+suite_id = "0x001d"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001d"
+
+[[suite_ids]]
+suite_id = "0x001e"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001e"
+
+[[suite_ids]]
+suite_id = "0x001f"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x001f"
+
+[[suite_ids]]
+suite_id = "0x0020"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0020"
+
+[[suite_ids]]
+suite_id = "0x0021"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0021"
+
+[[suite_ids]]
+suite_id = "0x0022"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0022"
+
+[[suite_ids]]
+suite_id = "0x0023"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0023"
+
+[[suite_ids]]
+suite_id = "0x0024"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0024"
+
+[[suite_ids]]
+suite_id = "0x0025"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0025"
+
+[[suite_ids]]
+suite_id = "0x0026"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0026"
+
+[[suite_ids]]
+suite_id = "0x0027"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0027"
+
+[[suite_ids]]
+suite_id = "0x0028"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0028"
+
+[[suite_ids]]
+suite_id = "0x0029"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0029"
+
+[[suite_ids]]
+suite_id = "0x002a"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002a"
+
+[[suite_ids]]
+suite_id = "0x002b"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002b"
+
+[[suite_ids]]
+suite_id = "0x002c"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002c"
+
+[[suite_ids]]
+suite_id = "0x002d"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002d"
+
+[[suite_ids]]
+suite_id = "0x002e"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002e"
+
+[[suite_ids]]
+suite_id = "0x002f"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x002f"
+
+[[suite_ids]]
+suite_id = "0x0030"
+status = "provisional"
+pending_issue = "maintainer-tracked-KAT-backlog"
+description = "KAT coverage pending for 0x0030"
+
+[[suite_ids]]
+suite_id = "0x0200"
+status = "approved"
+vector_file = "ed25519_signing.toml"
+vector_note = "Ed25519 signing KATs"
+
+[[suite_ids]]
+suite_id = "0x0201"
+status = "approved"
+vector_file = "ed25519_signing.toml"
+vector_note = "Ed25519 signing KATs"
+
+[[suite_ids]]
+suite_id = "0x0202"
+status = "approved"
+vector_file = "ed25519_signing.toml"
+vector_note = "Ed25519 signing KATs"
+
+[[suite_ids]]
+suite_id = "0x0203"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0203"
+
+[[suite_ids]]
+suite_id = "0x0204"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0204"
+
+[[suite_ids]]
+suite_id = "0x0205"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0205"
+
+[[suite_ids]]
+suite_id = "0x0206"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0206"
+
+[[suite_ids]]
+suite_id = "0x0207"
+status = "provisional"
+vector_file = "twofish.toml"
+vector_note = "KAT row 0x0207"
