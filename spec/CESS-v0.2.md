@@ -1,6 +1,7 @@
 # CESS — Cryptologically Enchanted Shamir's Secret
 
 **Version:** 0.2-draft  
+**Last updated:** 2026-04-06  
 **Document type:** Normative specification  
 **Keywords:** RFC 2119 (MUST, SHOULD, MAY)
 
@@ -350,7 +351,7 @@ The transmitted object is **only** `inner_blob`: authenticated encryption under 
 
 ### 8.5 Cipher suite identifier registry
 
-The **16-bit** registry (`ALGORITHM-REGISTRY.md`, Section 14) is an **internal** mapping for implementations, documentation, and **plaintext** use **inside** Mode A outer decryption or **off-wire** negotiation. It is **not** a cleartext **framing** field visible to third parties.
+The **16-bit** suite identifier space is defined in **Section 14.2**. **`ALGORITHM-REGISTRY.md`** holds the **canonical** numeric **`suite_id`** assignments (**Cipher suite identifier lookup table**) and the PR workflow under **Cipher suite identifier assignment**. Suite IDs are an **internal** mapping for implementations, documentation, and **plaintext** use **inside** Mode A outer decryption or **off-wire** negotiation. They are **not** a cleartext **framing** field visible to third parties.
 
 ### 8.6 Metadata concealment
 
@@ -494,14 +495,14 @@ Operational logs SHOULD avoid recording raw key material or PINs.
 
 ### 14.2 Identifiers
 
-- **Suite IDs:** 16-bit unsigned values `0x0000`–`0xFFFF`; **`0x0000` reserved**. These values are **registry** and **implementation** identifiers for **off-wire** negotiation, documentation, and **authenticated plaintext** inside **Mode A** outer decryption (Section 8). They are **not** IANA-assigned cleartext **framing** fields on the wire and **MUST NOT** appear **outside** authenticated encryption (Section 8.1).  
+- **Suite IDs:** 16-bit unsigned values `0x0000`–`0xFFFF`; **`0x0000` reserved**. These values are **registry** and **implementation** identifiers for **off-wire** negotiation, documentation, and **authenticated plaintext** inside **Mode A** outer decryption (Section 8). They are **not** IANA-assigned cleartext **framing** fields on the wire and **MUST NOT** appear **outside** authenticated encryption (Section 8.1). The **numeric assignment table** is **`ALGORITHM-REGISTRY.md`** (**Cipher suite identifier lookup table**).  
 - **Envelope version:** 8-bit unsigned; carried **inside** **inner** plaintext (Mode A after inner decrypt, Mode B, or Section 8.2.1), **not** in **outer** plaintext and **not** as cleartext framing before decryption.
 
 ---
 
 ## Appendix A — Audit evidence summary (informative)
 
-See `ALGORITHM-REGISTRY.md` for the living table.
+See `ALGORITHM-REGISTRY.md` for the living approved/excluded algorithm tables and the **cipher suite identifier lookup table** (`suite_id` assignments).
 
 ## Appendix B — Comparison with SLIP-0039, Feldman VSS, Pedersen VSS (informative)
 
