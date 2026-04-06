@@ -93,6 +93,16 @@ Normative rules for the **16-bit** value space (range, reserved **`0x0000`**, re
 
 Each row is one **inner** cipher tuple: **`(classical KEM for inner key derivation, optional PQ KEM, HKDF-BLAKE3, bulk AEAD or cascade)`** per `spec/CESS-v0.2.md` Sections 4.2, 6.1, 6.3, 6.6, and 7. **KDF** is always **HKDF-BLAKE3** with suite-specific `info` as in Section 8.3 unless a deployment profile documents an exception. **Mode A** outer framing is fixed (Section 6.6); **`suite_id`** selects only the **inner** profile.
 
+**Normative:** The meaning of each **`suite_id`** **MUST** be taken from the **lookup table** below. If an **informative** bit-field reading **conflicts** with a **lookup table** row, the **lookup table** is **authoritative** (`spec/CESS-v0.2.md` Section 8.5).
+
+**Encoding structure (informative):** The **`suite_id`** value encodes inner profile components in a structured layout to aid implementation:
+
+- **Bits 15–8** (for example **`0x00`** vs **`0x01`** vs **`0x02`**, and so on): **PQ KEM family.** **`0x00xx`** = classical only; **`0x01xx`** = FrodoKEM-1344 hybrid; **`0x011x`** = Classic McEliece 6688128 hybrid; **`0x012x`** = BrainpoolP512r1 + FrodoKEM-1344 hybrid.  
+- **Bits 7–4:** Classical inner KEM curve. **`0x_0_`** = BrainpoolP384r1; **`0x_1_`** = BrainpoolP512r1.  
+- **Bits 3–0:** Bulk AEAD selection. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade (ChaCha20-Poly1305 inner, Serpent-256-CTR + Poly1305 outer).
+
+**Informative:** The **`0x011x`** range **lies inside** the **`0x01xx`** span; **FrodoKEM-1344** applies to **`0x01xx`** **except** where **`0x011x`** denotes **Classic McEliece 6688128** per the lookup table. **Reserved** **`0x0000`** and the **lookup table** row for **`0x0001`** (BrainpoolP384r1 + ChaCha20-Poly1305) **preclude** a **pure** low-nibble **`0`** ChaCha code for that default **CESS-CORE** profile; **implementations MUST** still use the **lookup table** for **`0x0001`**.
+
 | `suite_id` | Classical inner KEM | PQ KEM | Bulk AEAD (inner) | Notes |
 |------------|----------------------|--------|-------------------|-------|
 | `0x0000` | — | — | — | **Reserved**; MUST reject (`spec/CESS-v0.2.md` Section 14.2). |
@@ -112,7 +122,9 @@ Each row is one **inner** cipher tuple: **`(classical KEM for inner key derivati
 | `0x0121` | BrainpoolP512r1 | FrodoKEM-1344 | Serpent-256-CTR + Poly1305 | Provisional PQ. |
 | `0x0122` | BrainpoolP512r1 | FrodoKEM-1344 | Cascade: ChaCha inner, Serpent+Poly1305 outer | Provisional PQ. |
 
-**Unassigned** values (`0x0004`–`0x000F`, `0x0013`–`0x00FF`, `0x0103`–`0x010F`, `0x0113`–`0x011F`, `0x0123`–`0xFFFF`, and all gaps not listed) are **unallocated**. Implementations MUST treat unknown `suite_id` values as **unsupported** unless a deployment-specific private-use agreement documents them.
+**Unknown `suite_id` handling (normative):** Implementations MUST treat any **`suite_id`** value **not** listed in **this table** as **unsupported** and MUST **reject** the frame **without** attempting **inner** decryption, **unless** a **deployment-specific private-use agreement** documented **out-of-band** **explicitly authorises** the value. The **rejection** MUST **NOT** reveal which **`suite_id`** was received to any party **other** than a **local administrator log**, to avoid **oracle** attacks on the identifier space. **Outer** ChaCha20-Poly1305 tag **verification** **MUST** succeed **before** **`suite_id`** is **read** or **acted on**; tag **failure** and **unknown** **`suite_id`** **rejection** **MUST** be **indistinguishable** to **remote** parties and **holders** (same **generic** error); **normative** ordering and leakage rules are in **`spec/CESS-v0.2.md`** Sections **8.3** and **8.5**.
+
+**Informative (registry maintenance):** **Unallocated** values include **`0x0004`–`0x000F`**, **`0x0013`–`0x00FF`**, **`0x0103`–`0x010F`**, **`0x0113`–`0x011F`**, **`0x0123`–`0xFFFF`**, and **all gaps** not listed above.
 
 ## Version history
 
@@ -123,3 +135,6 @@ Each row is one **inner** cipher tuple: **`(classical KEM for inner key derivati
 | 2026-04-04 | Register mandatory **BrainpoolP384r1** for **Mode A** outer session ECDH (Section 6.1.1) |
 | 2026-04-04 | **0.2-draft:** normative specification file is `spec/CESS-v0.2.md` |
 | 2026-04-06 | Add **Cipher suite identifier lookup table** (canonical `suite_id` assignments) |
+| 2026-04-06 | Add **informative** `suite_id` bit-field encoding; **normative** lookup precedence (`spec/CESS-v0.2.md` Section 8.5) |
+| 2026-04-06 | **Normative** unknown **`suite_id`** handling and oracle/leakage rules (`spec/CESS-v0.2.md` Section 8.5) |
+| 2026-04-06 | **Normative** outer **Poly1305**-before-**`suite_id`** ordering; same **generic** error for tag **failure** and **unknown** **`suite_id`** (`spec/CESS-v0.2.md` Sections 8.3, 8.5) |

@@ -325,7 +325,11 @@ When **session key material** and the **full cipher profile** are established **
 
 The **outer** layer MUST be **ChaCha20-Poly1305** (RFC 8439): **32-byte** key `K_outer`, **12-byte** nonce, ciphertext and **16-byte** tag per the RFC data model.
 
-After decryption, if `suite_id` is **`0x0000`**, implementations MUST **reject** the envelope (`suite_id` is reserved; Section 14.2).
+**Normative (processing order):** **Outer** ChaCha20-Poly1305 **authentication** (Poly1305 tag verification) **MUST** complete **successfully** **before** **`suite_id`** is **read** or **acted on**; if tag verification **fails**, implementations MUST **reject** the frame **without** examining **`suite_id`**, using the **same** **generic** externally observable **error** as for **unknown** **`suite_id`** (Section 8.5). **Only** after **successful** outer authentication **may** implementations parse **`suite_id`** and apply **inner** processing rules.
+
+**Normative:** If, **after** successful outer authentication, **`suite_id`** is **`0x0000`**, implementations MUST **reject** the envelope (`suite_id` is reserved; Section 14.2).
+
+**Normative:** If **`suite_id`** is **not** listed in **`ALGORITHM-REGISTRY.md`** (**Cipher suite identifier lookup table**), **unless** a **deployment-specific private-use agreement** documented **out-of-band** **explicitly authorises** the value, implementations MUST **reject** the frame **without** attempting **inner** decryption. **Rejection** and **leakage** rules are in **Section 8.5**.
 
 **On the wire:**
 
@@ -352,6 +356,18 @@ The transmitted object is **only** `inner_blob`: authenticated encryption under 
 ### 8.5 Cipher suite identifier registry
 
 The **16-bit** suite identifier space is defined in **Section 14.2**. **`ALGORITHM-REGISTRY.md`** holds the **canonical** numeric **`suite_id`** assignments (**Cipher suite identifier lookup table**) and the PR workflow under **Cipher suite identifier assignment**. Suite IDs are an **internal** mapping for implementations, documentation, and **plaintext** use **inside** Mode A outer decryption or **off-wire** negotiation. They are **not** a cleartext **framing** field visible to third parties.
+
+**Normative:** The meaning of each **`suite_id`** **MUST** be taken from the **Cipher suite identifier lookup table** in **`ALGORITHM-REGISTRY.md`**. If an **informative** bit-field reading (below) **conflicts** with a **lookup table** row, the **lookup table** is **authoritative**.
+
+**Encoding structure (informative):** The **`suite_id`** value encodes inner profile components in a structured layout to aid implementation:
+
+- **Bits 15–8** (for example **`0x00`** vs **`0x01`** vs **`0x02`**, and so on): **PQ KEM family.** **`0x00xx`** = classical only; **`0x01xx`** = FrodoKEM-1344 hybrid; **`0x011x`** = Classic McEliece 6688128 hybrid; **`0x012x`** = BrainpoolP512r1 + FrodoKEM-1344 hybrid.  
+- **Bits 7–4:** Classical inner KEM curve. **`0x_0_`** = BrainpoolP384r1; **`0x_1_`** = BrainpoolP512r1.  
+- **Bits 3–0:** Bulk AEAD selection. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade (ChaCha20-Poly1305 inner, Serpent-256-CTR + Poly1305 outer).
+
+**Informative:** The **`0x011x`** range **lies inside** the **`0x01xx`** span; **FrodoKEM-1344** applies to **`0x01xx`** **except** where **`0x011x`** denotes **Classic McEliece 6688128** per the lookup table. **Reserved** **`0x0000`** and the **lookup table** row for **`0x0001`** (BrainpoolP384r1 + ChaCha20-Poly1305) **preclude** a **pure** low-nibble **`0`** ChaCha code for that default **CESS-CORE** profile; **implementations MUST** still use the **lookup table** for **`0x0001`**.
+
+**Unknown `suite_id` handling (normative):** Implementations MUST treat any **`suite_id`** value **not** listed in **`ALGORITHM-REGISTRY.md`** (**Cipher suite identifier lookup table**) as **unsupported** and MUST **reject** the frame **without** attempting **inner** decryption, **unless** a **deployment-specific private-use agreement** documented **out-of-band** **explicitly authorises** the value. The **rejection** MUST **NOT** reveal which **`suite_id`** was received to any party **other** than a **local administrator log**, to avoid **oracle** attacks on the identifier space. **Outer** tag **verification failure** (Section 8.3) and **unknown** **`suite_id`** **rejection** **MUST** be **indistinguishable** to **remote** parties and **holders** (same **generic** error); **only** **local administrator** logs **may** record **different** causes.
 
 ### 8.6 Metadata concealment
 
@@ -495,7 +511,7 @@ Operational logs SHOULD avoid recording raw key material or PINs.
 
 ### 14.2 Identifiers
 
-- **Suite IDs:** 16-bit unsigned values `0x0000`–`0xFFFF`; **`0x0000` reserved**. These values are **registry** and **implementation** identifiers for **off-wire** negotiation, documentation, and **authenticated plaintext** inside **Mode A** outer decryption (Section 8). They are **not** IANA-assigned cleartext **framing** fields on the wire and **MUST NOT** appear **outside** authenticated encryption (Section 8.1). The **numeric assignment table** is **`ALGORITHM-REGISTRY.md`** (**Cipher suite identifier lookup table**).  
+- **Suite IDs:** 16-bit unsigned values `0x0000`–`0xFFFF`; **`0x0000` reserved**. These values are **registry** and **implementation** identifiers for **off-wire** negotiation, documentation, and **authenticated plaintext** inside **Mode A** outer decryption (Section 8). They are **not** IANA-assigned cleartext **framing** fields on the wire and **MUST NOT** appear **outside** authenticated encryption (Section 8.1). The **numeric assignment table** is **`ALGORITHM-REGISTRY.md`** (**Cipher suite identifier lookup table**). **Normative** meaning is **lookup table** first; **informative** bit-field layout is in **Section 8.5**. **Unknown** values: **Section 8.5** (unknown **`suite_id`** handling).  
 - **Envelope version:** 8-bit unsigned; carried **inside** **inner** plaintext (Mode A after inner decrypt, Mode B, or Section 8.2.1), **not** in **outer** plaintext and **not** as cleartext framing before decryption.
 
 ---
