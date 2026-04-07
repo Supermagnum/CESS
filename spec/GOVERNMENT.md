@@ -1,6 +1,6 @@
 # Government and high-security deployment guidance (informative)
 
-**Version:** 0.2-draft  
+**Version:** 0.2
 
 This note supports procurement officers, architects, and security officers evaluating CESS for **government** and **regulated** environments. It is **not** legal advice.
 
