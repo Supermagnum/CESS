@@ -2,7 +2,7 @@
 
 # CESS — Cryptologically Enchanted Shamir's Secret
 
-**Version:** 0.2-draft  
+**Version:** 0.2
 **Status:** Specification only (normative text and test vectors)
 
 This project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN), a defensive patent pool protecting Linux-related open source software. The combination of open preprint publication (establishing prior art), OIN membership, and GPL-3.0 licensing is intended to ensure this technology remains freely available and cannot be proprietised or restricted by any state or commercial actor.
