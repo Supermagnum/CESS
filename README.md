@@ -9,6 +9,8 @@ This project is registered with the [Open Invention Network](https://openinventi
 
 CESS is an open cryptographic standard for **threshold secret sharing** combined with **cipher-agnostic authenticated encryption**, **password-based share wrapping**, and optional **post-quantum hybrid key exchange**. It is designed for deployments that require long-lived confidentiality, air-gapped enrollment, hardware token binding, and procurement paths independent of NSA/NIST-only algorithm baselines.
 
+Non-technical readers may start with the [**glossary**](GLOSSARY.md) (plain-language terms A–Z).
+
 ## Why CESS exists
 
 Existing ecosystems address parts of this problem but leave gaps:
@@ -39,6 +41,7 @@ Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTR
 | `spec/CRYPTO.md` | Cryptographic rationale and proof sketches |
 | `spec/GOVERNMENT.md` | Government and high-security deployment notes |
 | `ALGORITHM-REGISTRY.md` | Living registry of approved and excluded algorithms |
+| `GLOSSARY.md` | Plain-language glossary of cryptographic and CESS terms (A–Z) |
 | `vectors/` | Machine-readable test vectors (TOML: ChaCha/Serpent/Twofish bulk, integration, etc.); CC0 |
 | `testdata/wycheproof/` | Vendored Wycheproof ChaCha20-Poly1305 JSON (Apache-2.0 upstream); see `testdata/wycheproof/README.md` |
 | `scripts/` | Vector generation helpers (GPL-3.0 where code) |
@@ -54,7 +57,7 @@ Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTR
 
 | Content | Licence |
 |---------|---------|
-| Specification prose (`spec/*.md`), `README.md`, `ALGORITHM-REGISTRY.md`, `vectors/*.toml` | **CC0 1.0 Universal** (public domain dedication) — see `LICENSE-SPEC` |
+| Specification prose (`spec/*.md`), `README.md`, `ALGORITHM-REGISTRY.md`, `GLOSSARY.md`, `vectors/*.toml` | **CC0 1.0 Universal** (public domain dedication) — see `LICENSE-SPEC` |
 | Rust runner, reference implementations, `scripts/serpent_helper/` | **GNU GPL v3.0** — see `LICENSE-CODE` |
 
 ## Patents and OIN
@@ -81,6 +84,7 @@ See `CONTRIBUTING.md`. **Pull requests** are treated as agreement to `PATENTS.md
 
 ## Document index
 
+- [Glossary](GLOSSARY.md) (non-technical A–Z)  
 - [Main standard](spec/CESS-v0.2.md)  
 - [CRYPTO (rationale)](spec/CRYPTO.md)  
 - [GOVERNMENT (deployment)](spec/GOVERNMENT.md)  
