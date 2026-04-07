@@ -122,11 +122,3 @@ express Statement of Purpose.
     party to this document and has no duty or obligation with respect to
     this CC0 or use of the Work.
 
-
-CESS repository — specification licence (CC0 1.0 Universal)
-
-The following components are dedicated to the public domain under CC0 1.0 Universal:
-  - All .md files in spec/
-  - All .toml files in vectors/
-  - ALGORITHM-REGISTRY.md
-  - README.md (this repository root)
