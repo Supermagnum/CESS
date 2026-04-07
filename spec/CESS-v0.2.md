@@ -1,6 +1,6 @@
 # CESS — Cryptologically Enchanted Shamir's Secret
 
-**Version:** 0.2-draft  
+**Version:** 0.2
 **Last updated:** 2026-04-06 (see Document revision history)  
 **Document type:** Normative specification  
 **Keywords:** RFC 2119 (MUST, SHOULD, MAY)
