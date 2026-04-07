@@ -1,6 +1,6 @@
 # CESS cryptographic rationale (informative)
 
-**Version:** 0.2-draft  
+**Version:** 0.2
 
 This document explains **why** CESS selects specific primitives, **why** excluded algorithms are rejected, and gives **argument sketches** for composition security. It is **not** normative; `spec/CESS-v0.2.md` is authoritative.
 
