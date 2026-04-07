@@ -1,0 +1,71 @@
+# crypto-verify: trust anchors for the CESS repository.
+# Runner lockfile: Cargo.lock at repo root is a symlink to runner/Cargo.lock.
+# After editing: gpg --armor --detach-sign --output verify.toml.asc verify.toml
+
+maintainer_fingerprint = "51966975E476E3AEE3656CD5BAF3F2CF817A9605"
+
+primitive_vectors = [
+  "integrity/sha256.toml",
+  "integrity/shamir.toml",
+]
+
+[wycheproof]
+upstream_commit = ""
+signing_key_fingerprint = "51966975E476E3AEE3656CD5BAF3F2CF817A9605"
+
+# SHA-256 of JSON under testdata/ (RFC Brainpool domain params, TLS ECDH, Wycheproof ChaCha).
+[wycheproof.files]
+"testdata/rfc5639/rfc5639_brainpool_domain_parameters.json" = "d4c36abff778824ffc4ac07ca5a405ec3241722c4b7a81d30d5f510c2c0108dc"
+"testdata/rfc7027/rfc7027_brainpool_tls_ecdh.json" = "3b69a2af2e8e31cafd1612333e1b14e9a91d7425e8eb9d9b12f5a6ed2aa52c3e"
+"testdata/rfc6932/rfc6932_brainpool_ecdh.json" = "c942c03a915ab5211c55c957ffdd98d3e99efcdf979120545292bd7a5439ef3c"
+"testdata/wycheproof/chacha20_poly1305_test.json" = "fe61d25f90e1bde4461d00eafe61049e5f29bd999f36b766df9cda90906ad53d"
+
+[[signed_crates]]
+name = "argon2"
+version = "0.5.3"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "blake3"
+version = "1.8.4"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "bp256"
+version = "0.14.0-rc.8"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "bp384"
+version = "0.14.0-rc.8"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "chacha20poly1305"
+version = "0.10.1"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "ed25519-dalek"
+version = "2.2.0"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "hkdf"
+version = "0.12.4"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "hmac"
+version = "0.12.1"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "serde"
+version = "1.0.228"
+signing_key_fingerprint = ""
+
+[[signed_crates]]
+name = "serde_json"
+version = "1.0.149"
+signing_key_fingerprint = ""

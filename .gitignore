@@ -2,3 +2,5 @@
 target/
 __pycache__/
 *.pyc
+
+/crypto-verify-report.md
