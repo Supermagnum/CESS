@@ -1,6 +1,6 @@
 # CESS Algorithm Registry (living document)
 
-**Version:** 0.2-draft  
+**Version:** 0.2
 **Last updated:** 2026-04-06  
 **Maintainers:** CESS editorial board (repository maintainers)
 
