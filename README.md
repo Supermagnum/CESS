@@ -2,7 +2,23 @@
 
 # CESS — Cryptologically Enchanted Shamir's Secret
 
-**Version:** 0.2
+## Is this AI bullshit or slop?
+
+
+
+A cryptographer or serious implementer reviewing CESS will typically open [`vectors/`](vectors/) and [`testdata/`](testdata/) before reading prose. The test suite is the proof of work: it encodes domain knowledge that cannot be substituted with narrative alone.
+
+That is not a reason to hide the point from everyone else. People evaluating the project for procurement, deciding whether to contribute, writing policy, or shipping code without deep training in cryptographic testing methodology still deserve a pointer to the concrete evidence. The repository already states audit rules and algorithm exclusions; linking that story to **published test vectors** closes the gap between “claims on the page” and “artefacts you can run.”
+
+**What to look at:** Conformance material includes **RFC 8439** worked examples for ChaCha20-Poly1305 (the IETF AEAD this project normatively references) and **vendored [Wycheproof](https://github.com/google/wycheproof)** JSON for ChaCha20-Poly1305 edge cases under [`testdata/wycheproof/`](testdata/wycheproof/). Together with the project’s own TOML vectors in [`vectors/`](vectors/), they are the ground truth the runner and reviewers can exercise.
+
+**RFC 8439** is published by the **Internet Engineering Task Force (IETF)**, the organisation that standardises much of how the internet interoperates. **RFCs** (Request for Comments) are the usual form for protocol and many cryptographic specifications. **RFC 8439** defines ChaCha20-Poly1305 authenticated encryption (building on Daniel Bernstein’s designs) and includes concrete worked examples with specific inputs and expected outputs so independent implementations can check they match the standard byte-for-byte. The widely reproduced plaintext beginning with *Ladies and Gentlemen of the class of '99: wear sunscreen* appears in the RFC’s appendix examples: if your code reproduces the AEAD output exactly, you have a strong check that you implemented the construction correctly. It is the cryptographic analogue of an official answer key. (Earlier **RFC 7539** documented ChaCha20 and Poly1305 for other IETF contexts; **RFC 8439** is the usual reference for this AEAD as used here and in `spec/CESS-v0.2.md`.)
+
+**Wycheproof** is a test corpus released by **Google’s security team** (2017). The name refers to **Mount Wycheproof** in Australia — often cited as the world’s smallest mountain — because the project focuses on clearing **small** but **fatal** hurdles: integer overflows, boundary cases, malformed inputs, and tampered authentication tags; failures that show up repeatedly in real deployed crypto. It complements RFC-style vectors: **RFC 8439**-style examples demonstrate correctness against the published AEAD; **Wycheproof** stresses robustness where implementations historically break.
+
+What that says about this standard is up to the well informed reader. 
+
+**Version:** 0.2  
 **Status:** Specification only (normative text and test vectors)
 
 This project is registered with the [Open Invention Network](https://openinventionnetwork.com/) (OIN), a defensive patent pool protecting Linux-related open source software. The combination of open preprint publication (establishing prior art), OIN membership, and GPL-3.0 licensing is intended to ensure this technology remains freely available and cannot be proprietised or restricted by any state or commercial actor.
