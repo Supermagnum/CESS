@@ -1,9 +1,4 @@
-CESS repository — code licence (GPL-3.0)
 
-The following components are licensed under GNU General Public License v3.0:
-  - All source files under runner/
-  - All source files under scripts/serpent_helper/ (Serpent test-vector helper)
-  - All source files under any reference implementation subdirectory (e.g. ref-impl/)
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
