@@ -4,8 +4,6 @@
 
 ## Is this AI bullshit or slop?
 
-
-
 A cryptographer or serious implementer reviewing CESS will typically open [`vectors/`](vectors/) and [`testdata/`](testdata/) before reading prose. The test suite is the proof of work: it encodes domain knowledge that cannot be substituted with narrative alone.
 
 That is not a reason to hide the point from everyone else. People evaluating the project for procurement, deciding whether to contribute, writing policy, or shipping code without deep training in cryptographic testing methodology still deserve a pointer to the concrete evidence. The repository already states audit rules and algorithm exclusions; linking that story to **published test vectors** closes the gap between “claims on the page” and “artefacts you can run.”
@@ -18,8 +16,8 @@ That is not a reason to hide the point from everyone else. People evaluating the
 
 What that says about this standard is up to the well informed reader. 
 
-One can also check with this tool:
-https://github.com/Supermagnum/crypto-verify
+One can also check integrity of crates with this when the pr is closed:
+https://github.com/rust-lang/cargo/issues/16850
 
 **Version:** 0.2  
 **Status:** Specification only (normative text and test vectors)
