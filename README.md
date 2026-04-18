@@ -48,6 +48,12 @@ CESS fixes **Shamir's Secret Sharing over GF(2^8)** and several audited **non-op
 - **NSA design input**, **NIST/FIPS-only** review, and several algorithms (AES, SHA-2, SHA-3, NIST curves, ML-Kyber, Dual_EC_DRBG, RC4, DES, 3DES, HMAC-SHA-*) are **excluded** with explicit rationale in the specification.
 - **X25519 / Ed25519** are optionally permitted with documented rationale (Bernstein designs; extensive independent audits).
 
+### Why NIST prime curves (P-256, P-384, P-521) are omitted
+
+The **NIST prime-field curves** widely used in US government and industry (**P-256**, **P-384**, **P-521**) were chosen through a process in which the **NSA** played a **documented** role. CESS does not rest on a single mathematical proof that those curves are weak; it applies a **policy exclusion** so the standard can serve **procurement, liaison, and engineering** paths that require **cryptography justified outside an NSA/NIST-only baseline** and that favour **independently reviewed** primitives (see `spec/CESS-v0.2.md` Section 3 and `ALGORITHM-REGISTRY.md`).
+
+**Classical ECDH in CESS uses Brainpool curves (RFC 5639)** instead. Their parameters are produced by **published generation rules** and they are a natural fit for **BSI-aligned** and **EU-centric** discussions while covering comparable strength targets (for example BrainpoolP384r1 vs P-384-class security) **without** adopting the excluded NIST curve family.
+
 Details: `spec/CESS-v0.2.md` Section 3, `spec/CRYPTO.md`, and `ALGORITHM-REGISTRY.md`.
 
 ## Repository layout
