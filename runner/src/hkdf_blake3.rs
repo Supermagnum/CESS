@@ -2,7 +2,9 @@
 
 const HMAC_BLOCK: usize = 64;
 
-fn hmac_blake3(key: &[u8], data: &[u8]) -> [u8; 32] {
+/// HMAC-BLAKE3 over `data` with `key` (RFC 2104 block size 64; same as `scripts/generate_vectors.py`
+/// and Galdralag `cess::hmac_blake3`).
+pub fn hmac_blake3(key: &[u8], data: &[u8]) -> [u8; 32] {
     let mut key = key.to_vec();
     if key.len() > HMAC_BLOCK {
         key = blake3::hash(&key).as_bytes().to_vec();

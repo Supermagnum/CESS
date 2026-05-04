@@ -36,6 +36,7 @@ Each file begins with a `schema` key identifying the format revision, e.g. `cess
 | `rfc6932_brainpool.toml` | informative cross-check | same | same |
 | `rfc7027_brainpool.toml` | informative cross-check | same | same |
 | `rfc5639_brainpool.toml` | informative cross-check | same | same |
+| `inner_cascade.toml` | HKDF-BLAKE3 + ChaCha + HMAC-BLAKE3 gap + Serpent CTR (see `docs/CESS_CONFORMANCE.md`) | same | same |
 
 ## RFC 5639 (domain parameters)
 

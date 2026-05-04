@@ -56,6 +56,7 @@ fn main() {
         "reed_solomon.toml",
         "rejection.toml",
         "integration.toml",
+        "inner_cascade.toml",
         "wycheproof_chacha.toml",
         "rfc6932_brainpool.toml",
         "rfc7027_brainpool.toml",
@@ -98,6 +99,7 @@ fn main() {
     let ed25519 = fs::read_to_string(dir.join("ed25519_signing.toml")).expect("ed25519_signing.toml");
     let ecdh_p512 = fs::read_to_string(dir.join("ecdh_p512_inner.toml")).expect("ecdh_p512_inner.toml");
     let matrix = fs::read_to_string(dir.join("classical_suite_id_matrix.toml")).expect("matrix");
+    let inner_cascade = fs::read_to_string(dir.join("inner_cascade.toml")).expect("inner_cascade.toml");
 
     match cess_runner::verify_all_crypto_vectors(
         &twofish,
@@ -106,6 +108,7 @@ fn main() {
         &ed25519,
         &ecdh_p512,
         &matrix,
+        &inner_cascade,
     ) {
         Ok(()) => println!("PASS crypto KAT verification"),
         Err(e) => {

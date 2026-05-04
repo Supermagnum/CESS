@@ -113,6 +113,7 @@ See `CONTRIBUTING.md`. **Pull requests** are treated as agreement to `PATENTS.md
 - [GOVERNMENT (deployment)](spec/GOVERNMENT.md)  
 - [Algorithm registry](ALGORITHM-REGISTRY.md)  
 - [Conformance](CONFORMANCE.md)  
+- [Conformance runner / inner cascade KATs](docs/CESS_CONFORMANCE.md)  
 - [Vectors guide](vectors/README.md)  
 - [Test runner](runner/README.md)  
 - [Patents](PATENTS.md)  
