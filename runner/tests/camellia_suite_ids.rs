@@ -1,4 +1,4 @@
-//! End-to-end: `vectors/camellia.toml` KATs and `suite_id` coverage for Camellia registry rows.
+//! End-to-end: `vectors/camellia.toml` KATs; registry `suite_id` coverage plus informative RFC 3713 ECB rows.
 
 use std::collections::BTreeSet;
 use std::fs;
@@ -12,7 +12,7 @@ fn camellia_toml_verifies_against_runner_crypto() {
 }
 
 #[test]
-fn camellia_toml_suite_ids_match_registry_camellia_rows() {
+fn camellia_toml_suite_id_set_matches_expected() {
     let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../vectors/camellia.toml");
     let s = fs::read_to_string(&path).unwrap();
     let root: toml::Value = s.parse().unwrap();
@@ -28,12 +28,18 @@ fn camellia_toml_suite_ids_match_registry_camellia_rows() {
             .expect("suite_id");
         ids.insert(id.to_string());
     }
-    let expected: BTreeSet<String> = [
+    let registry: BTreeSet<String> = [
         "0x0031", "0x0032", "0x0033", "0x0034", "0x0035", "0x0036", "0x0208", "0x0209",
         "0x020a", "0x020b", "0x020c",
     ]
     .into_iter()
     .map(String::from)
     .collect();
-    assert_eq!(ids, expected, "expected one KAT per Camellia suite_id row");
+    let informative: BTreeSet<String> = ["rfc3713-a128", "rfc3713-a192", "rfc3713-a256"]
+        .into_iter()
+        .map(String::from)
+        .collect();
+    let mut expected = registry.clone();
+    expected.extend(informative);
+    assert_eq!(ids, expected, "registry suite_id rows plus RFC 3713 Appendix A ECB rows");
 }

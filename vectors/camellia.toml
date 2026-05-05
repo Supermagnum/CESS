@@ -1,7 +1,37 @@
 # CESS v0.2 — Camellia-128/192/256-CTR + Poly1305 (RFC 8439 MAC layout); cascades with ChaCha20-Poly1305 and Serpent-256-CTR; Ed25519 inner bulk mirrors Twofish `suite_id` layout (`0x0208`–`0x020c`).
 # Same plaintext, AAD, IV, and Poly1305 key as vectors/twofish.toml where rows are parallel.
 # CTR increment matches twofish_bulk (16-byte little-endian counter schedule); camellia crate 0.2 (RustCrypto).
+# Scope: Rows with hexadecimal registry `suite_id` (`0x0031`, …) are bulk/cascade KATs for the CESS construction; verified by cess_runner::camellia_bulk (`cargo test` in runner/). Those rows are not an RFC 3713 Appendix A ECB corpus (no standalone raw block-cipher conformance by themselves).
+# Rows with `suite_id` rfc3713-a128 / rfc3713-a192 / rfc3713-a256 are RFC 3713 Appendix A single-block ECB (plaintext -> ciphertext); no Poly1305, no CESS framing. Wycheproof does not cover Camellia; designer Appendix A vectors are authoritative for one block per key size. ECB and CTR+Poly1305 classes are complementary; neither subsumes the other.
 schema = "cess-camellia-v0.2"
+
+# --- RFC 3713 Appendix A: raw ECB block cipher (informative cipher check, not CESS wire format) ---
+
+[[vectors]]
+description = "RFC 3713 Appendix A — Camellia-128 ECB single block"
+suite_id = "rfc3713-a128"
+notes = "RFC 3713 Appendix A 128-bit key row; ECB encrypt one block only. Distinct from CESS CTR+Poly1305 rows below."
+camellia_key_hex = "0123456789abcdeffedcba9876543210"
+plaintext_block_hex = "0123456789abcdeffedcba9876543210"
+ciphertext_block_hex = "67673138549669730857065648eabe43"
+
+[[vectors]]
+description = "RFC 3713 Appendix A — Camellia-192 ECB single block"
+suite_id = "rfc3713-a192"
+notes = "RFC 3713 Appendix A 192-bit key row; ECB. Not a CESS `suite_id` registry code."
+camellia_key_hex = "0123456789abcdeffedcba98765432100011223344556677"
+plaintext_block_hex = "0123456789abcdeffedcba9876543210"
+ciphertext_block_hex = "b4993401b3e996f84ee5cee7d79b09b9"
+
+[[vectors]]
+description = "RFC 3713 Appendix A — Camellia-256 ECB single block"
+suite_id = "rfc3713-a256"
+notes = "RFC 3713 Appendix A 256-bit key row; ECB. Not a CESS `suite_id` registry code."
+camellia_key_hex = "0123456789abcdeffedcba987654321000112233445566778899aabbccddeeff"
+plaintext_block_hex = "0123456789abcdeffedcba9876543210"
+ciphertext_block_hex = "9acc237dff16d76c20ef7c919e3a7509"
+
+# --- CESS profile: CTR + Poly1305 (registry suite_id hex) ---
 
 [[vectors]]
 description = "Camellia-128-CTR + Poly1305 single layer (BrainpoolP384 inner KEM tuple suite_id 0x0031)"

@@ -1,5 +1,6 @@
 //! Camellia-128/192/256-CTR + Poly1305 (RFC 8439 MAC layout), matching bulk AEAD Serpent/Twofish profiles.
 //! CTR increment matches `twofish_bulk` / `vectors/twofish.toml` (16-byte little-endian counter schedule).
+//! `verify_camellia_toml` checks `vectors/camellia.toml` only: CESS CTR+Poly1305 and cascade rows, plus RFC 3713 Appendix A ECB rows (`suite_id` `rfc3713-a*`). Integration surface vs raw block KATs are distinct; neither replaces the other.
 
 use camellia::{Camellia128, Camellia192, Camellia256};
 use cipher::array::Array;
@@ -85,7 +86,36 @@ fn camellia256_ctr_xor_inner(key: &[u8], iv16: &[u8; 16], buf: &mut [u8]) {
     }
 }
 
-/// Verify every `[[vectors]]` row in `vectors/camellia.toml`.
+/// Single-block ECB encrypt (RFC 3713 Appendix A style), for raw cipher KAT rows only.
+pub fn camellia_ecb_encrypt_block(key: &[u8], plaintext: &[u8; 16]) -> Result<[u8; 16], String> {
+    let arr = Array::<u8, U16>::from(*plaintext);
+    match key.len() {
+        16 => {
+            let ka = Key::<Camellia128>::try_from(key).map_err(|_| "camellia_key_hex: invalid Camellia-128 key".to_string())?;
+            let cipher = Camellia128::new(&ka);
+            let mut block = Block::<Camellia128>::from(arr);
+            cipher.encrypt_block(&mut block);
+            Ok(block.into())
+        }
+        24 => {
+            let ka = Key::<Camellia192>::try_from(key).map_err(|_| "camellia_key_hex: invalid Camellia-192 key".to_string())?;
+            let cipher = Camellia192::new(&ka);
+            let mut block = Block::<Camellia192>::from(arr);
+            cipher.encrypt_block(&mut block);
+            Ok(block.into())
+        }
+        32 => {
+            let ka = Key::<Camellia256>::try_from(key).map_err(|_| "camellia_key_hex: invalid Camellia-256 key".to_string())?;
+            let cipher = Camellia256::new(&ka);
+            let mut block = Block::<Camellia256>::from(arr);
+            cipher.encrypt_block(&mut block);
+            Ok(block.into())
+        }
+        _ => Err("camellia_key_hex: expected 16, 24, or 32 bytes".into()),
+    }
+}
+
+/// Verify every `[[vectors]]` row in `vectors/camellia.toml` (registry hex `suite_id` rows and RFC 3713 ECB rows).
 pub fn verify_camellia_toml(toml_str: &str) -> Result<(), String> {
     let root: toml::Value = toml_str
         .parse()
@@ -100,6 +130,9 @@ pub fn verify_camellia_toml(toml_str: &str) -> Result<(), String> {
             .and_then(|v| v.as_str())
             .ok_or_else(|| format!("vectors[{i}]: missing suite_id"))?;
         match suite_id {
+            "rfc3713-a128" | "rfc3713-a192" | "rfc3713-a256" => {
+                verify_rfc3713_appendix_a_ecb(row, suite_id)?;
+            }
             "0x0031" | "0x0032" | "0x0033" | "0x0208" | "0x020c" => verify_single_row(row, suite_id)?,
             "0x0034" | "0x0209" => verify_chacha_camellia_row(row, suite_id)?,
             "0x0035" | "0x020a" => verify_camellia_serpent_row(row, suite_id)?,
@@ -108,6 +141,32 @@ pub fn verify_camellia_toml(toml_str: &str) -> Result<(), String> {
                 return Err(format!("vectors[{i}]: unknown suite_id {suite_id}"));
             }
         }
+    }
+    Ok(())
+}
+
+fn verify_rfc3713_appendix_a_ecb(row: &toml::Value, suite_id: &str) -> Result<(), String> {
+    let key = hex_field(row, "camellia_key_hex")?;
+    let want_len = match suite_id {
+        "rfc3713-a128" => 16usize,
+        "rfc3713-a192" => 24,
+        "rfc3713-a256" => 32,
+        _ => unreachable!(),
+    };
+    if key.len() != want_len {
+        return Err(format!(
+            "{suite_id}: camellia_key_hex must be {want_len} bytes (RFC 3713 Appendix A)"
+        ));
+    }
+    let pt: [u8; 16] = hex_field(row, "plaintext_block_hex")?
+        .try_into()
+        .map_err(|_| "plaintext_block_hex: expected 16 bytes".to_string())?;
+    let exp: [u8; 16] = hex_field(row, "ciphertext_block_hex")?
+        .try_into()
+        .map_err(|_| "ciphertext_block_hex: expected 16 bytes".to_string())?;
+    let got = camellia_ecb_encrypt_block(&key, &pt)?;
+    if got != exp {
+        return Err(format!("{suite_id}: ECB ciphertext mismatch vs RFC 3713 Appendix A"));
     }
     Ok(())
 }
