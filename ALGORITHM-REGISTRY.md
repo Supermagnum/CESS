@@ -30,8 +30,8 @@ This registry records **approved**, **excluded**, and **provisional** algorithms
 | KDF | HKDF-BLAKE3 (RFC 5869 structure, HMAC-BLAKE3) | BLAKE3 paper; HKDF analysis | `info` strings in spec |
 | AEAD (primary) | ChaCha20-Poly1305 (RFC 8439) | eSTREAM / extensive review | Primary bulk AEAD |
 | AEAD (alt) | Serpent-256-CTR + Poly1305 | NESSIE Serpent; Poly1305 literature | Cascade-capable |
-| AEAD (alt-2) | Twofish-256-CTR + Poly1305 | NESSIE; AES competition public analysis | `vectors/twofish.toml` KATs for allocated Twofish rows; `cess_runner::twofish_bulk` verification; cascade-capable; no NSA design input |
-| AEAD (alt-3) | Camellia-128/192/256-CTR + Poly1305 | CRYPTREC; RFC 3713; NESSIE-extended literature | `vectors/camellia.toml` KATs; `cess_runner::camellia_bulk`; key size per `suite_id` row |
+| AEAD (alt-2) | Twofish-256-CTR + Poly1305 | NESSIE Phase II (2003); AES finalist / open cryptanalysis (1997–2001); Schneier et al. Twofish specification | `vectors/twofish.toml` KATs for allocated Twofish rows; `cess_runner::twofish_bulk` verification; cascade-capable; no NSA design input; MAC is **Poly1305** (RFC 8439 layout), not EtM+HMAC-SHA256 |
+| AEAD (alt-3) | Camellia-128/192/256-CTR + Poly1305 | NESSIE Phase II recommended (2003); CRYPTREC cipher list (2002); RFC 3713; ISO/IEC 18033-3 | `vectors/camellia.toml` KATs; `cess_runner::camellia_bulk`; key size per `suite_id` row; MAC is **Poly1305** (RFC 8439 layout), not EtM+HMAC-SHA256 |
 | Erasure coding | Reed–Solomon over GF(2^8) (profile in spec) | Classical RS literature | Data shards, not key shards |
 | PQ KEM (primary) | FrodoKEM-1344 | NCC Group report (specify version in implementation) | Hybrid only |
 | PQ KEM (alt) | Classic McEliece 6688128 | Long-standing code-based literature | Hybrid only |
@@ -231,3 +231,4 @@ For **classical-only** inner profiles (no PQ KEM), the **independent** policy di
 | 2026-04-07 | Informative **56**-cell classical combinatorics (**`0x0000`** sentinel); allocate **38** **`suite_id`** rows (**`0x0008`–`0x000f`**, **`0x0013`–`0x0030`**); **`vectors/classical_suite_id_matrix.toml`**; classical **product** **closed** in lookup table |
 | 2026-05-05 | **Camellia-128/192/256-CTR + Poly1305:** **`suite_id`** **`0x0031`–`0x0033`**; **`vectors/camellia.toml`**; runner **`cess_runner::camellia_bulk`**; **informative** note: Camellia rows **outside** the **4-bit** low-nibble bulk enumeration |
 | 2026-05-05 | **Camellia cascades** (**0x0034**–**0x0036**), **Ed25519** profiles **0x0208**–**0x020c** (parallel to Twofish **0x0005**–**0x0007** / **0x0203**–**0x0207**); KATs in **`vectors/camellia.toml`** |
+| 2026-05-05 | Approved-table **audit evidence** for **Twofish** and **Camellia**: cite **NESSIE Phase II**, CRYPTREC/RFC 3713/ISO as applicable; **Notes** state bulk MAC is **Poly1305** (RFC 8439 layout), not **HMAC-SHA256** EtM (other stacks may differ). |
