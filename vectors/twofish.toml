@@ -1,6 +1,7 @@
 # CESS v0.2 — Twofish-256-CTR + Poly1305 (RFC 8439 MAC layout), cascades with ChaCha20-Poly1305 and Serpent-256-CTR
 # CTR increment matches scripts/serpent_helper and bulk_aead.toml Serpent rows; Poly1305 matches ChaCha20-Poly1305 AEAD padding.
 # Single-layer rows include key_hex and nonce_hex (same octets as twofish_key_hex and ctr_iv_hex) for schema alignment with bulk_aead.toml.
+# Scope: bulk/cascade KATs for the CESS construction; verified by cess_runner::twofish_bulk (cargo test in runner/). This is not the Schneier et al. Appendix B block-cipher chain corpus (~1203 vectors, incl. Monte Carlo); that raw-cipher material is separate (e.g. Galdralag-firmware twofish_vectors.json). Both kinds of tests are useful and do not subsume each other.
 schema = "cess-twofish-v0.2"
 
 [[vectors]]

@@ -83,7 +83,7 @@ cd runner && cargo run --release --bin wycheproof_chacha -- ../testdata/wychepro
 - Use **deterministic** inputs; document PRNG seeds if used.  
 - Extend `scripts/generate_vectors.py` when possible.  
 - Serpent-dependent vectors require `scripts/serpent_helper` built with `cargo build --release --target-dir ./target`.
-- Twofish KATs in `twofish.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::twofish_bulk::verify_twofish_toml`).
+- Twofish KATs in `twofish.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::twofish_bulk::verify_twofish_toml`). Those rows are **integration** vectors for CTR+Poly1305 and cascades in the **CESS profile** (`cess-twofish-v0.2`); they do **not** duplicate the designers’ Appendix B Monte Carlo/specification-chain corpus (raw ECB/block traces), which other trees may ship under different filenames (for example **`twofish_vectors.json`** in **Galdralag-firmware**). Neither corpus replaces the other.
 - Camellia KATs in `camellia.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::camellia_bulk::verify_camellia_toml`).
 
 ## Regenerating vectors

@@ -1,5 +1,6 @@
 //! Twofish-256-CTR + Poly1305 (RFC 8439 MAC layout) and CESS cascades.
 //! Poly1305 matches ChaCha20-Poly1305 AEAD / Serpent profile: padded AAD, padded ciphertext, length block.
+//! `verify_twofish_toml` checks `vectors/twofish.toml` only (bulk/cascade wiring). Full Appendix B-style block-cipher KAT corpora live elsewhere (e.g. other repos); they neither replace nor duplicate this integration surface.
 
 use chacha20poly1305::aead::{Aead, KeyInit as ChaChaKeyInit, Payload};
 use chacha20poly1305::{ChaCha20Poly1305, Key as ChaChaKey, Nonce};
