@@ -2,6 +2,7 @@
 #![forbid(unsafe_code)]
 
 pub mod blake3_integrity;
+pub mod camellia_bulk;
 pub mod ecdh_p512_inner;
 pub mod ed25519_signing;
 pub mod hkdf_blake3;
@@ -12,6 +13,7 @@ pub mod vector_manifest;
 /// Run all cryptographic vector verifications required for CI (after TOML parse).
 pub fn verify_all_crypto_vectors(
     twofish: &str,
+    camellia: &str,
     hkdf: &str,
     blake3_int: &str,
     ed25519: &str,
@@ -24,6 +26,7 @@ pub fn verify_all_crypto_vectors(
     ed25519_signing::verify_ed25519_signing_toml(ed25519)?;
     ecdh_p512_inner::verify_ecdh_p512_inner_toml(ecdh_p512)?;
     twofish_bulk::verify_twofish_toml(twofish)?;
+    camellia_bulk::verify_camellia_toml(camellia)?;
     vector_manifest::verify_classical_suite_matrix_toml(matrix)?;
     inner_cascade::verify_inner_cascade_toml(inner_cascade)?;
     Ok(())

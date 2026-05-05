@@ -1,7 +1,7 @@
 # CESS Algorithm Registry (living document)
 
 **Version:** 0.2
-**Last updated:** 2026-04-06  
+**Last updated:** 2026-05-05  
 **Maintainers:** CESS editorial board (repository maintainers)
 
 This registry records **approved**, **excluded**, and **provisional** algorithms for cipher-agnostic CESS layers. The **normative** rules appear in `spec/CESS-v0.2.md` Section 3; this file is the **operational** checklist for pull requests.
@@ -31,6 +31,7 @@ This registry records **approved**, **excluded**, and **provisional** algorithms
 | AEAD (primary) | ChaCha20-Poly1305 (RFC 8439) | eSTREAM / extensive review | Primary bulk AEAD |
 | AEAD (alt) | Serpent-256-CTR + Poly1305 | NESSIE Serpent; Poly1305 literature | Cascade-capable |
 | AEAD (alt-2) | Twofish-256-CTR + Poly1305 | NESSIE; AES competition public analysis | `vectors/twofish.toml` KATs for allocated Twofish rows; `cess_runner::twofish_bulk` verification; cascade-capable; no NSA design input |
+| AEAD (alt-3) | Camellia-128/192/256-CTR + Poly1305 | CRYPTREC; RFC 3713; NESSIE-extended literature | `vectors/camellia.toml` KATs; `cess_runner::camellia_bulk`; key size per `suite_id` row |
 | Erasure coding | Reed–Solomon over GF(2^8) (profile in spec) | Classical RS literature | Data shards, not key shards |
 | PQ KEM (primary) | FrodoKEM-1344 | NCC Group report (specify version in implementation) | Hybrid only |
 | PQ KEM (alt) | Classic McEliece 6688128 | Long-standing code-based literature | Hybrid only |
@@ -102,7 +103,7 @@ Each row is one **inner** cipher tuple per `spec/CESS-v0.2.md` Sections 4.2, 4.5
 
 - **Bits 15–8:** **PQ KEM family** (for example **`0x00`**, **`0x01`**, **`0x02`**, **`0x03`**). **`0x00xx`** = classical only; **`0x01xx`** = FrodoKEM-1344 hybrid (except **`0x011x`**); **`0x011x`** = Classic McEliece 6688128 hybrid; **`0x012x`** = BrainpoolP512r1 + FrodoKEM-1344 hybrid; **`0x02xx`** = Ed25519-signed classical profiles (see table); **`0x03xx`** = reserved for Ed25519-signed PQ hybrid profiles (allocate via registry PR).  
 - **Bits 7–4:** Classical inner KEM curve. **`0x_0_`** = BrainpoolP384r1; **`0x_1_`** = BrainpoolP512r1.  
-- **Bits 3–0:** Bulk AEAD / cascade. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade ChaCha inner, Serpent outer; **`0x__3`** = Twofish-256-CTR + Poly1305 single layer; **`0x__4`** = cascade ChaCha inner, Twofish outer; **`0x__5`** = cascade Twofish inner, Serpent outer; **`0x__6`** = triple cascade ChaCha inner, Serpent middle, Twofish outer; **`0x__7`** = reserved.
+- **Bits 3–0:** Bulk AEAD / cascade. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade ChaCha inner, Serpent outer; **`0x__3`** = Twofish-256-CTR + Poly1305 single layer; **`0x__4`** = cascade ChaCha inner, Twofish outer; **`0x__5`** = cascade Twofish inner, Serpent outer; **`0x__6`** = triple cascade ChaCha inner, Serpent middle, Twofish outer; **`0x__7`** = reserved. **Informative:** Additional bulk profiles (**Camellia-CTR + Poly1305** at **`0x0031`–`0x0033`**, cascades at **`0x0034`–`0x0036`**, **Ed25519** variants at **`0x0208`–`0x020c`**) **do not** fit this **4-bit** low-nibble classification; take bulk selection **only** from the **lookup table**.
 
 **Informative:** The **`0x011x`** range **lies inside** **`0x01xx`**; **FrodoKEM-1344** applies to **`0x01xx`** **except** where **`0x011x`** is **McEliece**. **Reserved** **`0x0000`** and **`0x0001`** **preclude** a **pure** low-nibble **`0`** ChaCha encoding for the default **CESS-CORE** profile; **implementations MUST** still use the **lookup table** for **`0x0001`**.
 
@@ -127,7 +128,7 @@ For **classical-only** inner profiles (no PQ KEM), the **independent** policy di
 
 **Note:** The row **`0x0207`** is the **registered** profile that **combines** Twofish **single-layer** bulk, **optional** keyed BLAKE3 integrity **before** signing, and **Ed25519**; other cells of the **56** matrix are **not** implied by partial overlap with existing rows.
 
-**Combinatorial coverage (informative):** Every **56**-cell classical combination has a **`suite_id`** row below. **`vectors/classical_suite_id_matrix.toml`** lists per-row **status**, vector file pointers, and **`pending_issue`** where KAT coverage is still incomplete. **Twofish** inner bulk for **`0x0004`–`0x0007`** and **`0x0203`–`0x0207`** is covered by **`vectors/twofish.toml`** (`cess_runner::twofish_bulk`). **Keyed BLAKE3 integrity** has sample KATs in **`vectors/blake3_integrity.toml`** (not yet one row per **`suite_id`** in **`0x0008`–`0x000f`**). **Ed25519** has sample KATs in **`vectors/ed25519_signing.toml`**. **BrainpoolP512r1** inner ECDH + HKDF sample material for **`0x0013`** is in **`vectors/ecdh_p512_inner.toml`** (Python **`scripts/verify_p512_ecdh_kat.py`** cross-checks ECDH). Rows without matching KAT entries remain **provisional** per admission criteria **6** until extended.
+**Combinatorial coverage (informative):** Every **56**-cell classical combination has a **`suite_id`** row below. **`vectors/classical_suite_id_matrix.toml`** lists per-row **status**, vector file pointers, and **`pending_issue`** where KAT coverage is still incomplete. **Twofish** inner bulk for **`0x0004`–`0x0007`** and **`0x0203`–`0x0207`** is covered by **`vectors/twofish.toml`** (`cess_runner::twofish_bulk`). **Camellia** inner bulk and **Camellia**-involving cascades for **`0x0031`–`0x0036`** and **`0x0208`–`0x020c`** are covered by **`vectors/camellia.toml`** (`cess_runner::camellia_bulk`). **Keyed BLAKE3 integrity** has sample KATs in **`vectors/blake3_integrity.toml`** (not yet one row per **`suite_id`** in **`0x0008`–`0x000f`**). **Ed25519** has sample KATs in **`vectors/ed25519_signing.toml`**. **BrainpoolP512r1** inner ECDH + HKDF sample material for **`0x0013`** is in **`vectors/ecdh_p512_inner.toml`** (Python **`scripts/verify_p512_ecdh_kat.py`** cross-checks ECDH). Rows without matching KAT entries remain **provisional** per admission criteria **6** until extended.
 
 | `suite_id` | Classical inner KEM | PQ KEM | Bulk AEAD (inner) | Signature | Notes |
 |------------|----------------------|--------|-------------------|-----------|-------|
@@ -180,6 +181,12 @@ For **classical-only** inner profiles (no PQ KEM), the **independent** policy di
 | `0x002e` | BrainpoolP512r1 | — | Triple cascade: ChaCha inner, Serpent middle, Twofish outer | Ed25519 | **Provisional**; P512 triple cascade + Ed25519 KATs pending (see `vectors/classical_suite_id_matrix.toml`). |
 | `0x002f` | BrainpoolP512r1 | — | Triple cascade: ChaCha inner, Serpent middle, Twofish outer | — | Keyed BLAKE3 integrity present. **Provisional** until vectors. |
 | `0x0030` | BrainpoolP512r1 | — | Triple cascade: ChaCha inner, Serpent middle, Twofish outer | Ed25519 | Keyed BLAKE3 integrity present; Ed25519 signing. **Provisional** until vectors. |
+| `0x0031` | BrainpoolP384r1 | — | Camellia-128-CTR + Poly1305 | — | Single-layer Camellia (128-bit key); KAT `vectors/camellia.toml`; `cess_runner::camellia_bulk`. |
+| `0x0032` | BrainpoolP384r1 | — | Camellia-192-CTR + Poly1305 | — | Single-layer Camellia (192-bit key); KAT `vectors/camellia.toml`. |
+| `0x0033` | BrainpoolP384r1 | — | Camellia-256-CTR + Poly1305 | — | Single-layer Camellia (256-bit key); KAT `vectors/camellia.toml`. |
+| `0x0034` | BrainpoolP384r1 | — | Cascade: ChaCha inner, Camellia-256 outer | — | KAT `vectors/camellia.toml` (`suite_id` `0x0034`); Section 4.4. |
+| `0x0035` | BrainpoolP384r1 | — | Cascade: Camellia-256 inner, Serpent outer | — | KAT `vectors/camellia.toml` (`suite_id` `0x0035`); Section 4.4. |
+| `0x0036` | BrainpoolP384r1 | — | Triple cascade: ChaCha inner, Serpent middle, Camellia-256 outer | — | KAT `vectors/camellia.toml` (`suite_id` `0x0036`); Section 13.8. |
 | `0x0100` | BrainpoolP384r1 | FrodoKEM-1344 | ChaCha20-Poly1305 | — | **Provisional** PQ (Section 7.2). |
 | `0x0101` | BrainpoolP384r1 | FrodoKEM-1344 | Serpent-256-CTR + Poly1305 | — | **Provisional** PQ. |
 | `0x0102` | BrainpoolP384r1 | FrodoKEM-1344 | Cascade: ChaCha inner, Serpent outer | — | **Provisional** PQ. |
@@ -197,10 +204,15 @@ For **classical-only** inner profiles (no PQ KEM), the **independent** policy di
 | `0x0205` | BrainpoolP384r1 | — | Cascade: Twofish inner, Serpent outer | Ed25519 | Signed variant of `0x0006`; inner bulk KAT `vectors/twofish.toml` (`suite_id` `0x0205`). |
 | `0x0206` | BrainpoolP384r1 | — | Triple cascade: ChaCha, Serpent, Twofish | Ed25519 | Signed variant of `0x0007`; inner bulk KAT `vectors/twofish.toml` (`suite_id` `0x0206`). |
 | `0x0207` | BrainpoolP384r1 | — | Twofish single + optional keyed BLAKE3 integrity before sign | Ed25519 | Inner bulk KAT `vectors/twofish.toml` (`suite_id` `0x0207`; `blake3_integrity_key_hex`, `expected_blake3_integrity_tag_hex`). Ed25519 KAT templates `vectors/ed25519_signing.toml`. Section 6.3. |
+| `0x0208` | BrainpoolP384r1 | — | Camellia-256-CTR + Poly1305 | Ed25519 | Signed variant of `0x0033`; inner bulk KAT `vectors/camellia.toml` (`suite_id` `0x0208`). Ed25519 KAT templates `vectors/ed25519_signing.toml`. |
+| `0x0209` | BrainpoolP384r1 | — | Cascade: ChaCha inner, Camellia-256 outer | Ed25519 | Signed variant of `0x0034`; inner bulk KAT `vectors/camellia.toml` (`suite_id` `0x0209`). |
+| `0x020a` | BrainpoolP384r1 | — | Cascade: Camellia-256 inner, Serpent outer | Ed25519 | Signed variant of `0x0035`; inner bulk KAT `vectors/camellia.toml` (`suite_id` `0x020a`). |
+| `0x020b` | BrainpoolP384r1 | — | Triple cascade: ChaCha, Serpent, Camellia-256 | Ed25519 | Signed variant of `0x0036`; inner bulk KAT `vectors/camellia.toml` (`suite_id` `0x020b`). |
+| `0x020c` | BrainpoolP384r1 | — | Camellia-256 single + optional keyed BLAKE3 integrity before sign | Ed25519 | Inner bulk KAT `vectors/camellia.toml` (`suite_id` `0x020c`; `blake3_integrity_key_hex`, `expected_blake3_integrity_tag_hex`). Ed25519 KAT templates `vectors/ed25519_signing.toml`. Section 6.3. |
 
 **Unknown `suite_id` handling (normative):** Implementations MUST treat any **`suite_id`** value **not** listed in **this table** as **unsupported** and MUST **reject** the frame **without** attempting **inner** decryption, **unless** a **deployment-specific private-use agreement** documented **out-of-band** **explicitly authorises** the value. The **rejection** MUST **NOT** reveal which **`suite_id`** was received to any party **other** than a **local administrator log**, to avoid **oracle** attacks on the identifier space. **Outer** ChaCha20-Poly1305 tag **verification** **MUST** succeed **before** **`suite_id`** is **read** or **acted on**; **outer** tag **failure**, **Ed25519** **verification** **failure**, and **unknown** **`suite_id`** **rejection** **MUST** be **indistinguishable** to **remote** parties and **holders** (same **generic** error); **normative** ordering and leakage rules are in **`spec/CESS-v0.2.md`** Sections **4.5**, **8.3**, and **8.5**.
 
-**Informative (registry maintenance):** **Unallocated** values include gaps not listed above (for example **`0x0031`–`0x00FF`** excluding listed rows, **`0x0103`–`0x010F`**, **`0x0113`–`0x011F`**, **`0x0123`–`0x01FF`**, **`0x0208`–`0x02FF`**, **`0x0300`–`0xFFFF`** until allocated).
+**Informative (registry maintenance):** **Unallocated** values include gaps not listed above (for example **`0x0037`–`0x00FF`** excluding listed rows, **`0x0103`–`0x010F`**, **`0x0113`–`0x011F`**, **`0x0123`–`0x01FF`**, **`0x020d`–`0x02FF`**, **`0x0300`–`0xFFFF`** until allocated).
 
 ## Version history
 
@@ -217,3 +229,5 @@ For **classical-only** inner profiles (no PQ KEM), the **independent** policy di
 | 2026-04-06 | **Twofish-256-CTR + Poly1305** (approved): `vectors/twofish.toml` KATs; optional standalone BLAKE3 integrity; **Ed25519** inner signing; **`suite_id`** `0x0004`–`0x0007` and `0x0203`–`0x0207`; runner `cess_runner::twofish_bulk` verification |
 | 2026-04-06 | Lookup table Notes: KAT pointers for **`vectors/twofish.toml`**, **`vectors/blake3_integrity.toml`**, **`vectors/ed25519_signing.toml`**, **`vectors/ecdh_p512_inner.toml`**; **`vectors/classical_suite_id_matrix.toml`** per-row status; fix P512 Twofish row notes (P512 Twofish KATs not implied by P384 `twofish.toml` rows); **`0x0013`** KEM corrected to **BrainpoolP512r1** (matches `vectors/ecdh_p512_inner.toml`). |
 | 2026-04-07 | Informative **56**-cell classical combinatorics (**`0x0000`** sentinel); allocate **38** **`suite_id`** rows (**`0x0008`–`0x000f`**, **`0x0013`–`0x0030`**); **`vectors/classical_suite_id_matrix.toml`**; classical **product** **closed** in lookup table |
+| 2026-05-05 | **Camellia-128/192/256-CTR + Poly1305:** **`suite_id`** **`0x0031`–`0x0033`**; **`vectors/camellia.toml`**; runner **`cess_runner::camellia_bulk`**; **informative** note: Camellia rows **outside** the **4-bit** low-nibble bulk enumeration |
+| 2026-05-05 | **Camellia cascades** (**0x0034**–**0x0036**), **Ed25519** profiles **0x0208**–**0x020c** (parallel to Twofish **0x0005**–**0x0007** / **0x0203**–**0x0207**); KATs in **`vectors/camellia.toml`** |

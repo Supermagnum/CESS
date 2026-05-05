@@ -36,7 +36,7 @@ Serpent was an **AES finalist** with NESSIE background; in CTR mode with an inde
 
 ### 1.7 Twofish-256-CTR + Poly1305
 
-Twofish was an **AES finalist** with public analysis; **NESSIE** selected Twofish; CTR mode with an independent Poly1305 key parallels the Serpent profile (Section 6.3 of `spec/CESS-v0.2.md`). **Known-answer** material for **Twofish** and **cascade** rows (`suite_id` in `ALGORITHM-REGISTRY.md`) is in **`vectors/twofish.toml`**; the runner crate `cess_runner::twofish_bulk` checks those vectors in **`cargo test`** (`runner/`).
+Twofish was an **AES finalist** with public analysis; **NESSIE** selected Twofish; CTR mode with an independent Poly1305 key parallels the Serpent profile (Section 6.3 of `spec/CESS-v0.2.md`). **Known-answer** material for **Twofish** and **cascade** rows (`suite_id` in `ALGORITHM-REGISTRY.md`) is in **`vectors/twofish.toml`**; the runner crate `cess_runner::twofish_bulk` checks those vectors in **`cargo test`** (`runner/`). **Camellia** (RFC 3713) uses the same CTR + Poly1305 framing for **approved** **`suite_id`** rows (**`0x0031`–`0x0036`**, **`0x0208`–`0x020c`**); **KATs** are in **`vectors/camellia.toml`** and **`cess_runner::camellia_bulk`**.
 
 ## 2. Excluded algorithms (per-algorithm)
 

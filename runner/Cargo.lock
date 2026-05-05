@@ -149,6 +149,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "byteorder"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
+
+[[package]]
+name = "camellia"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26f8497bae7a64e5ba66a107df01378570a9a6b282a61913d1e9c28e76f8c65a"
+dependencies = [
+ "byteorder",
+ "cipher 0.5.1",
+]
+
+[[package]]
 name = "cc"
 version = "1.2.59"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -166,6 +182,7 @@ dependencies = [
  "blake3",
  "bp256",
  "bp384",
+ "camellia",
  "chacha20poly1305",
  "cipher 0.5.1",
  "ed25519-dalek",

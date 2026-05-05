@@ -38,6 +38,9 @@ Applying more than one encryption layer in a fixed order (for example an inner A
 **CESS-PQ**  
 The optional part of CESS that adds post-quantum key exchange on top of classical cryptography, following the spec’s hybrid rules.
 
+**Camellia**  
+Block cipher; key sizes **128**, **192**, or **256** bits. Registry **`suite_id`** rows **`0x0031`–`0x0036`** and **`0x0208`–`0x020c`** with **`vectors/camellia.toml`** when used as CESS bulk or cascade profiles.
+
 **ChaCha20-Poly1305**  
 A common combination: ChaCha20 hides data; Poly1305 detects changes. CESS uses it for the *Mode A* outer wrapper and as one of the inner bulk options.
 

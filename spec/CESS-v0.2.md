@@ -1,7 +1,7 @@
 # CESS — Cryptologically Enchanted Shamir's Secret
 
 **Version:** 0.2
-**Last updated:** 2026-04-06 (see Document revision history)  
+**Last updated:** 2026-05-05 (see Document revision history)  
 **Document type:** Normative specification  
 **Keywords:** RFC 2119 (MUST, SHOULD, MAY)
 
@@ -145,9 +145,9 @@ A **cipher tuple** is an ordered selection:
 ### 4.3 Compliant examples (informative)
 
 - ChaCha20-Poly1305 alone.  
-- Serpent-256-CTR + Poly1305 alone; Twofish-256-CTR + Poly1305 alone.  
+- Serpent-256-CTR + Poly1305 alone; Twofish-256-CTR + Poly1305 alone; Camellia-128/192/256-CTR + Poly1305 alone (per registry **`suite_id`**).  
 - ChaCha inner, Serpent+Poly1305 outer (default cascade).  
-- Registered non-default cascade orders (distinct **`suite_id`** each; Section 4.4).  
+- Registered non-default cascade orders (distinct **`suite_id`** each; Section 4.4), including ChaCha inner, **Camellia-256-CTR**+Poly1305 outer; **Camellia-256-CTR** inner, Serpent+Poly1305 outer; triple ChaCha / Serpent / **Camellia-256** (see **`ALGORITHM-REGISTRY.md`**).  
 - Brainpool ECDH + HKDF-BLAKE3 + tuple above, optional keyed BLAKE3 integrity, optional Ed25519 signing.  
 - Optional: FrodoKEM-1344 + classical + HKDF-BLAKE3 hybrid.
 
@@ -260,6 +260,8 @@ HKDF **MUST** follow RFC 5869 using **HMAC-BLAKE3** as the PRF.
 
 **Twofish-256-CTR + Poly1305:** Twofish uses **256-bit** key, **128-bit** block, **16** rounds; **CTR** mode; Poly1305 uses **32-byte** one-time key and the same RFC 8439 MAC data layout over `AAD || ciphertext` with padding as in `vectors/bulk_aead.toml` (MAC construction). **Known-answer** ciphertexts for Twofish and Twofish cascades are in **`vectors/twofish.toml`** (`schema` `cess-twofish-v0.2`).
 
+**Camellia-128/192/256-CTR + Poly1305:** Camellia uses a **128-bit** block and a **128-, 192-, or 256-bit** key per **`suite_id`** in **`ALGORITHM-REGISTRY.md`**; **CTR** mode with the same **16-byte** counter schedule as **Serpent** and **Twofish** bulk rows in the conformance runner; Poly1305 uses **32-byte** one-time key and the same RFC 8439 MAC data layout as **`vectors/bulk_aead.toml`**. **Known-answer** ciphertexts (single-layer, ChaCha/Serpent/Camellia cascades where registered, and **Ed25519** inner-bulk templates) are in **`vectors/camellia.toml`** (`schema` `cess-camellia-v0.2`).
+
 **Cascade:** Inner ChaCha20-Poly1305 on plaintext; outer Serpent-CTR then Poly1305 on inner ciphertext; **distinct** subkeys. Non-default cascade orders (including Twofish and triple cascades) are **normative** only where listed in `ALGORITHM-REGISTRY.md` (Section 4.4).
 
 **Optional keyed BLAKE3 integrity (between cascade layers or before signing):** When a registered profile includes this step, the **key** is **32** bytes from **HKDF-BLAKE3** with **IKM** from session material per Section 6.2 and **distinct** `info` per Section 8.3. The **tag** is **32** bytes (**BLAKE3** output). **Position:** compute keyed BLAKE3 over the innermost AEAD ciphertext before the next cascade layer, or over the full cascade output before Ed25519 signing when no further AEAD layer follows. Profiles without this step omit it entirely.
@@ -268,7 +270,7 @@ HKDF **MUST** follow RFC 5869 using **HMAC-BLAKE3** as the PRF.
 
 1. Argon2id output (32 bytes) as IKM.  
 2. HKDF-BLAKE3 with `info = "cess-pin-v1"` → 32-byte wrap key.  
-3. AEAD encrypt share material (ChaCha20-Poly1305, Serpent profile, or Twofish profile per Section 6.3 when registered).
+3. AEAD encrypt share material (ChaCha20-Poly1305, Serpent profile, Twofish profile, or Camellia profile per Section 6.3 when registered).
 
 ### 6.5 Session key material
 
@@ -396,7 +398,7 @@ The **16-bit** suite identifier space is defined in **Section 14.2**. **`ALGORIT
 
 - **Bits 15–8:** **PQ KEM family** (for example **`0x00`** vs **`0x01`** vs **`0x02`**). **`0x00xx`** = classical only; **`0x01xx`** = FrodoKEM-1344 hybrid (except **`0x011x`**); **`0x011x`** = Classic McEliece 6688128 hybrid; **`0x012x`** = BrainpoolP512r1 + FrodoKEM-1344 hybrid; **`0x02xx`** = Ed25519-signed variants of classical **`0x00xx`**-family profiles (see lookup table); **`0x03xx`** = reserved for Ed25519-signed PQ hybrid variants (allocate via registry PR).  
 - **Bits 7–4:** Classical inner KEM curve. **`0x_0_`** = BrainpoolP384r1; **`0x_1_`** = BrainpoolP512r1.  
-- **Bits 3–0:** Bulk AEAD / cascade selection. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade (ChaCha inner, Serpent outer); **`0x__3`** = Twofish-256-CTR + Poly1305 single layer; **`0x__4`** = cascade (ChaCha inner, Twofish outer); **`0x__5`** = cascade (Twofish inner, Serpent outer); **`0x__6`** = triple cascade (ChaCha inner, Serpent middle, Twofish outer); **`0x__7`** = reserved for future allocation.
+- **Bits 3–0:** Bulk AEAD / cascade selection. **`0x__0`** = ChaCha20-Poly1305; **`0x__1`** = Serpent-256-CTR + Poly1305; **`0x__2`** = cascade (ChaCha inner, Serpent outer); **`0x__3`** = Twofish-256-CTR + Poly1305 single layer; **`0x__4`** = cascade (ChaCha inner, Twofish outer); **`0x__5`** = cascade (Twofish inner, Serpent outer); **`0x__6`** = triple cascade (ChaCha inner, Serpent middle, Twofish outer); **`0x__7`** = reserved for future allocation. **Informative:** **Camellia-CTR + Poly1305** profiles (**Section** **6.3**) use dedicated **`suite_id`** values including **`0x0031`–`0x0036`** and **`0x0208`–`0x020c`** in **`ALGORITHM-REGISTRY.md`** and **do not** follow this **4-bit** low-nibble enumeration alone.
 
 **Informative:** The **`0x011x`** range **lies inside** the **`0x01xx`** span; **FrodoKEM-1344** applies to **`0x01xx`** **except** where **`0x011x`** denotes **Classic McEliece 6688128** per the lookup table. **Reserved** **`0x0000`** and the **lookup table** row for **`0x0001`** (BrainpoolP384r1 + ChaCha20-Poly1305) **preclude** a **pure** low-nibble **`0`** ChaCha code for that default **CESS-CORE** profile; **implementations MUST** still use the **lookup table** for **`0x0001`**.
 
@@ -562,6 +564,7 @@ A **triple** cascade (for example **`suite_id`** **`0x0007`**: ChaCha20-Poly1305
 | 2026-04-06 | `suite_id` registry and outer-layer processing (Poly1305 before `suite_id`, unknown `suite_id`, oracle rules). Extended cipher tuple (optional keyed BLAKE3 integrity, optional Ed25519 signing); Twofish-256-CTR + Poly1305; standalone BLAKE3 integrity keys for inner profiles; Mode A outer plaintext with optional Ed25519 signature field; cascade registration rules (Section 4.4); extended `suite_id` encoding (Section 8.5); Section 13.8 triple cascades. |
 | 2026-04-06 | Section 4.5: normative Ed25519 vs ECDH/KEM key separation (same session). |
 | 2026-04-06 | Section 6.3: normative **`vectors/twofish.toml`** reference for Twofish-256-CTR + Poly1305 KATs (`cess-twofish-v0.2`). |
+| 2026-05-05 | **Camellia** in Section 6.3 (**`vectors/camellia.toml`**, `cess-camellia-v0.2`): single-layer **0x0031**–**0x0033**; cascades **0x0034**–**0x0036**; **Ed25519** inner bulk **0x0208**–**0x020c**; Section 4.3 examples; Section 8.5 **informative** **`suite_id`** note (outside **4-bit** bulk nibble map); Section 6.4 PIN-wrap. |
 | 2026-04-07 | Section 8.5: informative **56**-cell matrix; **`0x0000`** sentinel; **lookup table** authoritative for **`suite_id`**; **`vectors/classical_suite_id_matrix.toml`** cross-reference |
 
 ---

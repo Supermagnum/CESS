@@ -28,6 +28,7 @@ Each file begins with a `schema` key identifying the format revision, e.g. `cess
 | `ed25519_signing.toml` | Ed25519 sign/verify KATs | same | same |
 | `ecdh_p512_inner.toml` | P512 ECDH + HKDF inner key | same | same |
 | `twofish.toml` | yes | yes | + PQ when added |
+| `camellia.toml` | yes | yes | + PQ when added |
 | `pin_wrap.toml` | ChaCha row | + Serpent row | optional |
 | `reed_solomon.toml` | no | yes | yes |
 | `rejection.toml` | yes | yes | yes |
@@ -83,6 +84,7 @@ cd runner && cargo run --release --bin wycheproof_chacha -- ../testdata/wychepro
 - Extend `scripts/generate_vectors.py` when possible.  
 - Serpent-dependent vectors require `scripts/serpent_helper` built with `cargo build --release --target-dir ./target`.
 - Twofish KATs in `twofish.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::twofish_bulk::verify_twofish_toml`).
+- Camellia KATs in `camellia.toml` are checked by **`cargo test`** in `runner/` (`cess_runner::camellia_bulk::verify_camellia_toml`).
 
 ## Regenerating vectors
 

@@ -7,6 +7,7 @@ use std::path::PathBuf;
 fn verify_all_crypto_vectors_matches_main() {
     let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../vectors");
     let twofish = fs::read_to_string(dir.join("twofish.toml")).expect("twofish.toml");
+    let camellia = fs::read_to_string(dir.join("camellia.toml")).expect("camellia.toml");
     let hkdf = fs::read_to_string(dir.join("hkdf_blake3.toml")).expect("hkdf_blake3.toml");
     let blake3_int = fs::read_to_string(dir.join("blake3_integrity.toml")).expect("blake3_integrity.toml");
     let ed25519 = fs::read_to_string(dir.join("ed25519_signing.toml")).expect("ed25519_signing.toml");
@@ -15,6 +16,7 @@ fn verify_all_crypto_vectors_matches_main() {
     let inner_cascade = fs::read_to_string(dir.join("inner_cascade.toml")).expect("inner_cascade.toml");
     cess_runner::verify_all_crypto_vectors(
         &twofish,
+        &camellia,
         &hkdf,
         &blake3_int,
         &ed25519,

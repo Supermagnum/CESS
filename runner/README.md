@@ -1,6 +1,6 @@
 # CESS conformance test runner
 
-Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/`, then runs **`cess_runner::verify_all_crypto_vectors`** on `twofish.toml`, `hkdf_blake3.toml`, `blake3_integrity.toml`, `ed25519_signing.toml`, `ecdh_p512_inner.toml`, `classical_suite_id_matrix.toml`, and **`inner_cascade.toml`**. It then runs **`scripts/verify_p512_ecdh_kat.py`** (Python `cryptography`) to cross-check the BrainpoolP512r1 ECDH row in `ecdh_p512_inner.toml`. The library crate **`cess_runner`** implements **`twofish_bulk`**, **HKDF-BLAKE3** (`hkdf_blake3`), **keyed BLAKE3 integrity** (`blake3_integrity`), **Ed25519** vector checks (`ed25519_signing`), and **`inner_cascade`** (Galdralag-aligned cascade KATs). **`cargo test`** runs Twofish integration tests (`tests/twofish_suite_ids.rs`), full-file HKDF checks, and **`tests/kat_vectors.rs`**. Full **library under test** binding remains available via `--impl` where applicable.
+Rust crate `cess-runner` (GNU GPL v3.0) loads and validates **TOML syntax** for all files under `vectors/`, then runs **`cess_runner::verify_all_crypto_vectors`** on `twofish.toml`, **`camellia.toml`**, `hkdf_blake3.toml`, `blake3_integrity.toml`, `ed25519_signing.toml`, `ecdh_p512_inner.toml`, `classical_suite_id_matrix.toml`, and **`inner_cascade.toml`**. It then runs **`scripts/verify_p512_ecdh_kat.py`** (Python `cryptography`) to cross-check the BrainpoolP512r1 ECDH row in `ecdh_p512_inner.toml`. The library crate **`cess_runner`** implements **`twofish_bulk`**, **`camellia_bulk`**, **HKDF-BLAKE3** (`hkdf_blake3`), **keyed BLAKE3 integrity** (`blake3_integrity`), **Ed25519** vector checks (`ed25519_signing`), and **`inner_cascade`** (Galdralag-aligned cascade KATs). **`cargo test`** runs Twofish and Camellia integration tests (`tests/twofish_suite_ids.rs`, `tests/camellia_suite_ids.rs`), full-file HKDF checks, and **`tests/kat_vectors.rs`**. Full **library under test** binding remains available via `--impl` where applicable.
 
 Conformance narrative (including inner cascade coverage and SHA-256 policy on the outer Serpent tag): [`docs/CESS_CONFORMANCE.md`](../docs/CESS_CONFORMANCE.md).
 
@@ -56,7 +56,7 @@ env -u CARGO_TARGET_DIR cargo run --release --bin rfc6932_brainpool -- ../testda
 - Final summary: `summary PASS=n FAIL=m`.  
 - Exit code **0** only if every listed file parses as TOML.
 
-The **`cess-runner`** binary currently checks **TOML parse** only for each file; Twofish KAT **cryptographic** verification is in **`cargo test`** (see above).
+The **`cess-runner`** binary currently checks **TOML parse** for each file; Twofish and Camellia KAT **cryptographic** verification is in **`cargo test`** (see above).
 
 ## Conformance
 

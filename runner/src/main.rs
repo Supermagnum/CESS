@@ -50,6 +50,7 @@ fn main() {
         "blake3_integrity.toml",
         "classical_suite_id_matrix.toml",
         "twofish.toml",
+        "camellia.toml",
         "ed25519_signing.toml",
         "ecdh_p512_inner.toml",
         "pin_wrap.toml",
@@ -94,6 +95,7 @@ fn main() {
     }
 
     let twofish = fs::read_to_string(dir.join("twofish.toml")).expect("twofish.toml");
+    let camellia = fs::read_to_string(dir.join("camellia.toml")).expect("camellia.toml");
     let hkdf = fs::read_to_string(dir.join("hkdf_blake3.toml")).expect("hkdf_blake3.toml");
     let blake3_int = fs::read_to_string(dir.join("blake3_integrity.toml")).expect("blake3_integrity.toml");
     let ed25519 = fs::read_to_string(dir.join("ed25519_signing.toml")).expect("ed25519_signing.toml");
@@ -103,6 +105,7 @@ fn main() {
 
     match cess_runner::verify_all_crypto_vectors(
         &twofish,
+        &camellia,
         &hkdf,
         &blake3_int,
         &ed25519,

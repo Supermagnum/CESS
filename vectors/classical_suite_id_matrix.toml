@@ -290,6 +290,42 @@ pending_issue = "maintainer-tracked-KAT-backlog"
 description = "KAT coverage pending for 0x0030"
 
 [[suite_ids]]
+suite_id = "0x0031"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Camellia-128 KAT row 0x0031"
+
+[[suite_ids]]
+suite_id = "0x0032"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Camellia-192 KAT row 0x0032"
+
+[[suite_ids]]
+suite_id = "0x0033"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Camellia-256 KAT row 0x0033"
+
+[[suite_ids]]
+suite_id = "0x0034"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "ChaCha-Camellia cascade KAT 0x0034"
+
+[[suite_ids]]
+suite_id = "0x0035"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Camellia-Serpent cascade KAT 0x0035"
+
+[[suite_ids]]
+suite_id = "0x0036"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Triple cascade KAT 0x0036"
+
+[[suite_ids]]
 suite_id = "0x0200"
 status = "approved"
 vector_file = "ed25519_signing.toml"
@@ -336,3 +372,33 @@ suite_id = "0x0207"
 status = "provisional"
 vector_file = "twofish.toml"
 vector_note = "KAT row 0x0207"
+
+[[suite_ids]]
+suite_id = "0x0208"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Ed25519 inner KAT 0x0208"
+
+[[suite_ids]]
+suite_id = "0x0209"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Ed25519 cascade KAT 0x0209"
+
+[[suite_ids]]
+suite_id = "0x020a"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Ed25519 cascade KAT 0x020a"
+
+[[suite_ids]]
+suite_id = "0x020b"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Ed25519 triple cascade KAT 0x020b"
+
+[[suite_ids]]
+suite_id = "0x020c"
+status = "approved"
+vector_file = "camellia.toml"
+vector_note = "Ed25519 + BLAKE3 integrity KAT 0x020c"
